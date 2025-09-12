@@ -14,18 +14,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.allengineeringinone.R
 
 
 // Este es el punto de entrada para el widget del dólar.
 // Se encarga de obtener el ViewModel y pasar el estado a la vista.
 @Composable
 fun DolarRoute(
+    modifier: Modifier = Modifier
     // No necesita parámetros, ya que crea su propio ViewModel
 ) {
     val dolarViewModel: DolarViewModel = viewModel()
@@ -33,7 +36,8 @@ fun DolarRoute(
 
     DolarWidget(
         uiState = uiState,
-        refreshDolar = dolarViewModel::refreshDolar
+        refreshDolar = dolarViewModel::refreshDolar,
+        modifier = modifier
     )
 }
 
@@ -43,15 +47,14 @@ fun DolarRoute(
 @Composable
 fun DolarWidget(
     uiState: DolarViewModelState,
-    refreshDolar: () -> Unit
+    refreshDolar: () -> Unit,
+    modifier: Modifier = Modifier
 ){
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(Color.White, RoundedCornerShape(4.dp))
-            .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-            .padding(4.dp, 2.dp)
-            .height(400.dp)
+            .padding(16.dp)
     ){
         Column {
             Text(
@@ -59,25 +62,30 @@ fun DolarWidget(
                 modifier = Modifier
                     .fillMaxWidth()
                 ,
-                color = Color.Green,
+                color = colorResource(id = R.color.dark_gray),
                 textAlign = TextAlign.Center,
-                fontSize = 20.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            Row {
+            Row (modifier = Modifier.padding(0.dp,16.dp,0.dp,0.dp)){
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "Compra",
                         modifier = Modifier.fillMaxWidth(),
+                        color = colorResource(id = R.color.gray),
                         textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium
                     )
 
                     Text(
                         text = "$ ${uiState.dolarCotization?.buy}",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        modifier = Modifier.fillMaxWidth().padding(0.dp,20.dp,0.dp,8.dp),
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.dolar_green),
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Black
                     )
                 }
 
@@ -85,17 +93,28 @@ fun DolarWidget(
                     Text(
                         text = "Venta",
                         modifier = Modifier.fillMaxWidth(),
+                        color = colorResource(id = R.color.gray),
                         textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium
                     )
 
                     Text(
                         text = "$ ${uiState.dolarCotization?.sell}",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        modifier = Modifier.fillMaxWidth().padding(0.dp,20.dp,0.dp,8.dp),
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.dolar_green),
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Black
                     )
                 }
             }
+
+            Text(
+                "Actualizado por última vez: ${uiState.dolarCotization?.date}",
+                modifier = Modifier.fillMaxWidth().padding(0.dp,0.dp,16.dp, 0.dp),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light)
         }
     }
 }

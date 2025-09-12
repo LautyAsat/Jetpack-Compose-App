@@ -1,11 +1,10 @@
 package com.example.allengineeringinone.ui.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,26 +25,24 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.allengineeringinone.repositories.DolarCotization
-import com.example.allengineeringinone.ui.dolar.DolarWidget
+import com.example.allengineeringinone.R
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     uiState: HomeViewModelState,
-    dolarWidget: @Composable () -> Unit,
+    dolarWidget: @Composable (Modifier) -> Unit,
     refreshBattery: () -> Unit,
-    callEngineeringCousil: @Composable () -> Unit,
+    callEngineeringCousil: @Composable (Modifier) -> Unit,
     refreshEngineringFee: () -> Unit,
     openDrawer: () -> Unit
 ){
@@ -53,12 +50,34 @@ fun HomeScreen(
         topBar = {
             // Barra superior de la app.
             TopAppBar(
-                title = { Text("Herramientas para Ingenieros") },
+                title = {
+                    Text("AllEngineerInOne",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp,0.dp,16.dp,0.dp),
+                    fontWeight = FontWeight.Bold,)},
                 navigationIcon = {
-                    IconButton (onClick = {
-                        openDrawer()
-                    }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Menú")
+                    IconButton (
+                        onClick = { openDrawer() },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Menú",
+                            modifier = Modifier.size(50.dp)
+                        )
+                    }
+                },
+                actions = {
+                    Column(
+                        modifier = Modifier.padding(4.dp, 4.dp, 16.dp, 4.dp )
+                    ){
+                        Image(
+                            painter = painterResource(R.drawable.ic_battery_f4), // o el ícono que quieras
+                            contentDescription = null,                // null si es puramente decorativo
+                            modifier = Modifier.size(28.dp)
+                        )
+                        Text("80%")
                     }
                 }
             )
@@ -69,17 +88,35 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(16.dp)
             ) {
 
-                dolarWidget()
+                dolarWidget(
+                    Modifier
+                        .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
+                )
 
-                callEngineeringCousil()
+                Spacer(Modifier.height(20.dp))
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(400.dp)
+                        .background(Color.White, RoundedCornerShape(16.dp))
+                        .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
+
+                )
+
+                Spacer(Modifier.height(20.dp))
+
+
+                callEngineeringCousil(
+                    Modifier
+                        .height(60.dp)
+
+                )
 
                 Spacer(modifier = Modifier.height(20.dp))
-                Text(text = "Aquí podrás agregar el widget de cotización del dólar y otras funciones.")
             }
         }
     )

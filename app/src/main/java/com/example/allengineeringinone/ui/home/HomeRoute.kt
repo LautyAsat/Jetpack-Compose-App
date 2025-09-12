@@ -19,36 +19,15 @@ fun HomeRoute(
 ){
     val uiState: HomeViewModelState by homeViewModel.uiState.collectAsStateWithLifecycle()
 
-    HomeRoute(
-        uiState = uiState,
-        refreshBattery = homeViewModel::refreshBattery,
-        refreshEngineringFee = homeViewModel::refreshEngineringFee,
-        openDrawer = openDrawer,
-        dolarWidget = { DolarRoute() },
-        callEngineeringCousil = { CallEngineeringCousilRoute() }
-    )
-}
-
-
-
-
-@Composable
-fun HomeRoute(
-    uiState: HomeViewModelState,
-    refreshBattery: () -> Unit,
-    callEngineeringCousil: @Composable () -> Unit,
-    refreshEngineringFee: () -> Unit,
-    openDrawer: () -> Unit,
-    dolarWidget: @Composable () -> Unit // Recibe el widget como un Composable
-){
-    //TODO: AGREGAR VARIANTES DEPENDIENDO EL STATE DEL HOME SCREEN.
-
     HomeScreen(
         uiState = uiState,
-        dolarWidget = dolarWidget,
-        refreshBattery = refreshBattery,
-        callEngineeringCousil = callEngineeringCousil,
-        refreshEngineringFee = refreshEngineringFee,
+        dolarWidget = { modifier -> DolarRoute(modifier) },
+        callEngineeringCousil = { modifier -> CallEngineeringCousilRoute(modifier) },
+        refreshBattery = homeViewModel::refreshBattery,
+        refreshEngineringFee = homeViewModel::refreshEngineringFee,
         openDrawer = openDrawer
     )
 }
+
+
+
