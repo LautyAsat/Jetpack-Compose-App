@@ -41,7 +41,7 @@ import com.example.allengineeringinone.R
 fun HomeScreen(
     uiState: HomeViewModelState,
     dolarWidget: @Composable (Modifier) -> Unit,
-    refreshBattery: () -> Unit,
+    batteryWidget: @Composable (Modifier) -> Unit,
     callEngineeringCousil: @Composable (Modifier) -> Unit,
     refreshEngineringFee: () -> Unit,
     openDrawer: () -> Unit
@@ -69,16 +69,7 @@ fun HomeScreen(
                     }
                 },
                 actions = {
-                    Column(
-                        modifier = Modifier.padding(4.dp, 4.dp, 16.dp, 4.dp )
-                    ){
-                        Image(
-                            painter = painterResource(R.drawable.ic_battery_f4), // o el ícono que quieras
-                            contentDescription = null,                // null si es puramente decorativo
-                            modifier = Modifier.size(28.dp)
-                        )
-                        Text("80%")
-                    }
+                    batteryWidget(Modifier)
                 }
             )
         },
