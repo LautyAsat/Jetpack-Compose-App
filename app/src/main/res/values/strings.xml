@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AllEngineeringInOne</string>
+
+
+    <!--  Errores -->
+    <string name="tag_error">APP_ERROR</string>
+    <string name="dolar_error">Error obteniendo cotización</string>
+
+
+    <!-- Engineering Cousil Phone Number -->
+    <string name="engineering_cousil_phone_number">+542302210818</string>
+</resources>
