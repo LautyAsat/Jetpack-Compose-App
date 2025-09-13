@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.allengineeringinone.R
+import com.example.allengineeringinone.ui.components.TopAppBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,29 +49,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             // Barra superior de la app.
-            TopAppBar(
-                title = {
-                    Text("AllEngineerInOne",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(0.dp,0.dp,16.dp,0.dp),
-                    fontWeight = FontWeight.Bold,)},
-                navigationIcon = {
-                    IconButton (
-                        onClick = { openDrawer() },
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Menú",
-                            modifier = Modifier.size(50.dp)
-                        )
-                    }
-                },
-                actions = {
-                    batteryWidget(Modifier)
-                }
-            )
+            TopAppBar(openDrawer, batteryWidget)
         },
         content = { paddingValues ->
             // Contenido principal de la pantalla, debajo de la barra superior.

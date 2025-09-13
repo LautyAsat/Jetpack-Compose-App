@@ -8,11 +8,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.allengineeringinone.ui.components.TopAppBar
+import com.example.allengineeringinone.ui.home.battery.BatteryViewModel
 
 
 @Composable
-fun ToolsScreen(){
+fun ToolsScreen(
+    openDrawer: () -> Unit,
+    batteryWidget: @Composable (Modifier) -> Unit
+){
     Scaffold(
+        topBar = {
+            // Barra superior de la app.
+            TopAppBar(openDrawer, batteryWidget)
+        },
+
         content = { paddingValues ->
 
             Column(

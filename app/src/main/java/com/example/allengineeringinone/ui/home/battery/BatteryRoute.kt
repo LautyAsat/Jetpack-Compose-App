@@ -16,8 +16,10 @@ import com.example.allengineeringinone.R
 
 
 @Composable
-fun BatteryRoute(modifier: Modifier){
-    val batteryViewModel: BatteryViewModel = viewModel()
+fun BatteryRoute(
+    batteryViewModel: BatteryViewModel,
+    modifier: Modifier
+){
     val uiState: BatteryViewModelState by batteryViewModel.uiState.collectAsStateWithLifecycle()
 
     BatteryWidget(uiState.batteryLevelPercentage)
