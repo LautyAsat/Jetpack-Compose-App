@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,6 +10,21 @@ android {
     namespace = "com.example.allengineeringinone"
     compileSdk = 36
 
+    //config api key
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    val properties = Properties()
+    val propertiesFile = rootProject.file("local.properties")
+    if (propertiesFile.exists()) {
+        propertiesFile.inputStream().use { properties.load(it) }
+    }
+
+    val gmapsApiKey: String = properties.getProperty("gmaps_api_key") ?: ""
+
+
     defaultConfig {
         applicationId = "com.example.allengineeringinone"
         minSdk = 24
@@ -16,6 +33,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // config api key
+        buildConfigField("String", "GMAPS_API_KEY", "\"$gmapsApiKey\"")
+        manifestPlaceholders["gmapsApiKey"] = gmapsApiKey
     }
 
     buildTypes {
@@ -40,12 +61,16 @@ android {
 }
 
 dependencies {
+    // Compose navigation
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
     val nav_version = "2.9.3"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+
+    // defaultDependencies
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -66,4 +91,7 @@ dependencies {
     // API
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+    // Google Maps
+    implementation("com.google.maps.android:maps-compose:4.4.1")
 }
