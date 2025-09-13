@@ -1,8 +1,11 @@
 package com.example.allengineeringinone
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -11,18 +14,21 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
+import androidx.compose.ui.unit.sp
 
+
+/*
+* Este archivo contiene la implementación del cajón de navegación lateral de la aplicación (AppDrawer).
+* Define la estructura y el comportamiento que tendra cada uno de los botones del panel.
+* */
 @Composable
 fun AppDrawer(
     drawerState: DrawerState,
@@ -31,6 +37,7 @@ fun AppDrawer(
     closeDrawer: () -> Unit,
     navigateToHome: () -> Unit,
     navigateToTools: () -> Unit,
+    navigateToMap: () -> Unit,
 ){
     ModalDrawerSheet (
         drawerState = drawerState,
@@ -39,9 +46,30 @@ fun AppDrawer(
 
         Spacer(Modifier.padding(4.dp))
 
-        AllEngineerInOneLogo()
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth()
+        ){
+
+            IconButton (
+                onClick = { closeDrawer() },
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Menú",
+                    modifier = Modifier.size(50.dp).padding(4.dp, 0.dp, 0.dp, 0.dp)
+                )
+            }
+
+            AllEngineerInOneLogo(modifier = Modifier.padding(16.dp, 0.dp))
+        }
+
+        Spacer(Modifier.padding(4.dp))
 
         HorizontalDivider(thickness = 2.dp)
+
+        Spacer(Modifier.padding(8.dp))
 
         NavigationDrawerItem(
             label = { Text(text = "Home") },
@@ -52,7 +80,7 @@ fun AppDrawer(
                 closeDrawer()
             }
         )
-        // Agrega más elementos de menú aquí.
+
         NavigationDrawerItem(
             label = { Text(text = "Herramientas") },
             selected = currentRoute == AllEngineerInOneDestinations.TOOLS_ROUTE,
@@ -61,18 +89,28 @@ fun AppDrawer(
                 closeDrawer()
             }
         )
+
+        NavigationDrawerItem(
+            label = { Text(text = "Mapa") },
+            selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
+            onClick = {
+                navigateToMap()
+                closeDrawer()
+            }
+        )
     }
 }
 
 @Composable
 fun AllEngineerInOneLogo(modifier: Modifier = Modifier){
-    Row(modifier = modifier) {
-        Icon(
-            painterResource(R.drawable.ic_allengineerinone_logo),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-        )
+    Row(modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Spacer(Modifier.width(8.dp))
-        Text("AllEngineeringInOne", fontFamily = FontFamily.Cursive)
+        Text(
+            text = "AllEngineeringInOne",
+            fontWeight = FontWeight.Black,
+            fontSize = 22.sp
+        )
     }
 }

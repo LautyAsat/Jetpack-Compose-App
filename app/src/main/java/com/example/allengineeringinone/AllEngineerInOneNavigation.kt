@@ -28,7 +28,7 @@ class AllEngineerInOneNavigation(navController: NavController) {
 
     }
 
-    val navigationToMaps: () -> Unit = {
+    val navigationToMap: () -> Unit = {
 
     }
 

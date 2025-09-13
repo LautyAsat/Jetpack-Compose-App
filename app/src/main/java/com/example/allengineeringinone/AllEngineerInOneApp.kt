@@ -60,7 +60,8 @@ fun AllEngineerInOneApp(){
                 currentRoute = currentRoute,
                 closeDrawer = { courutineScope.launch{ closeDrawer(drawerState)} },
                 navigateToTools = navigationActions.navigationToTools,
-                navigateToHome = navigationActions.navigationToHome
+                navigateToHome = navigationActions.navigationToHome,
+                navigateToMap = navigationActions.navigationToMap
             )
         },
         gesturesEnabled = false,
