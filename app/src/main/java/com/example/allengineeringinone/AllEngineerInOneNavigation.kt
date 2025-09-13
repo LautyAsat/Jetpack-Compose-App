@@ -1,6 +1,7 @@
 package com.example.allengineeringinone
 
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 
 /*
 * Rutas destino de la app 'AllEngineerInOne'
@@ -21,15 +22,33 @@ object AllEngineerInOneDestinations {
 class AllEngineerInOneNavigation(navController: NavController) {
 
     val navigationToHome: () -> Unit = {
-        // Navegamos
+        navController.navigate(AllEngineerInOneDestinations.HOME_ROUTE) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     val navigationToTools: () -> Unit = {
-
+        navController.navigate(AllEngineerInOneDestinations.TOOLS_ROUTE) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     val navigationToMap: () -> Unit = {
-
+        navController.navigate(AllEngineerInOneDestinations.MAPS_ROUTE) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
 }

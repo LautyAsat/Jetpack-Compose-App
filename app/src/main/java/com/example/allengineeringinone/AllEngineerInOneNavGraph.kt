@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.allengineeringinone.ui.home.HomeRoute
 import com.example.allengineeringinone.ui.home.HomeViewModel
+import com.example.allengineeringinone.ui.map.MapRoute
+import com.example.allengineeringinone.ui.tools.ToolsRoute
 
 @Composable
 fun AllEngineerInOneNavGraph(
@@ -39,12 +41,16 @@ fun AllEngineerInOneNavGraph(
             route = AllEngineerInOneDestinations.TOOLS_ROUTE
         ){
             // ToolsScreen
+
+            ToolsRoute()
         }
 
         composable (
             route = AllEngineerInOneDestinations.MAPS_ROUTE
         ){
             // MapScreen
+
+            MapRoute()
         }
 
     }

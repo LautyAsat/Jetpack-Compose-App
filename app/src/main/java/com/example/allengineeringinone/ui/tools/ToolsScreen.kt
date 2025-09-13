@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.map
+package com.example.allengineeringinone.ui.tools
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,8 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+
 @Composable
-fun MapScreen(){
+fun ToolsScreen(){
     Scaffold(
         content = { paddingValues ->
 
@@ -20,7 +21,7 @@ fun MapScreen(){
                     .padding(paddingValues)
                     .padding(16.dp)
             ) {
-                Text("Mapas")
+                Text("Tools")
             }
         }
     )
