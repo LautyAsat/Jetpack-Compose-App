@@ -3,10 +3,9 @@ package com.example.allengineeringinone.ui.home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.allengineeringinone.ui.dolar.DolarRoute
-import com.example.allengineeringinone.openDrawer
-import com.example.allengineeringinone.ui.battery.BatteryRoute
-import com.example.allengineeringinone.ui.call.CallEngineeringCousilRoute
+import com.example.allengineeringinone.ui.home.dolar.DolarRoute
+import com.example.allengineeringinone.ui.home.battery.BatteryRoute
+import com.example.allengineeringinone.ui.home.call.CallEngineeringCousilRoute
 
 /**
  * Renderiza la homeRoute
@@ -19,6 +18,8 @@ fun HomeRoute(
     openDrawer: () -> Unit
 ){
     val uiState: HomeViewModelState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
+    // TODO: !Crear los Viewmodels aquí.
 
     HomeScreen(
         uiState = uiState,

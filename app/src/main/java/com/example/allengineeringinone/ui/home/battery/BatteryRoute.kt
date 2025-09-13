@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.battery
+package com.example.allengineeringinone.ui.home.battery
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

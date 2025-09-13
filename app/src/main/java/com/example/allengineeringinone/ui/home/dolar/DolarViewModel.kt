@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.dolar
+package com.example.allengineeringinone.ui.home.dolar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

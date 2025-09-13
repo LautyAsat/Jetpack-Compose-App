@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.battery
+package com.example.allengineeringinone.ui.home.battery
 
 import android.app.Application
 import android.content.BroadcastReceiver
