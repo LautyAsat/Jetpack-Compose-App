@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120288497580",
+    "project_id": "allengineeringinone-b41aa",
+    "storage_bucket": "allengineeringinone-b41aa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120288497580:android:82264606a2da5b0cc27409",
+        "android_client_info": {
+          "package_name": "com.example.allengineeringinone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMaiomFVBDQhFUQrq2k2dLrP8RYxy9Fs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

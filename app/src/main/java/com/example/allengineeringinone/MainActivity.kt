@@ -6,8 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
 import com.example.allengineeringinone.AllEngineerInOneApp
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)

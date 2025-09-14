@@ -1,9 +1,13 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
+
+    id("com.android.application")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp) // <-- Quédate solo con esta línea para KSP
+    alias(libs.plugins.hilt.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -69,6 +73,14 @@ dependencies {
     val nav_version = "2.9.3"
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+    implementation("com.google.firebase:firebase-firestore")
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
+
 
     // defaultDependencies
 
@@ -94,4 +106,8 @@ dependencies {
 
     // Google Maps
     implementation("com.google.maps.android:maps-compose:4.4.1")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    //hilt
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 }
