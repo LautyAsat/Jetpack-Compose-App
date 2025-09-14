@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
@@ -20,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -75,6 +78,7 @@ fun AppDrawer(
             label = { Text(text = "Home") },
             icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
             selected = currentRoute == AllEngineerInOneDestinations.HOME_ROUTE,
+            shape = RectangleShape,
             onClick = {
                 navigateToHome()
                 closeDrawer()
@@ -83,7 +87,9 @@ fun AppDrawer(
 
         NavigationDrawerItem(
             label = { Text(text = "Herramientas") },
+            icon = { Icon(Icons.Filled.Build, contentDescription = "Tools") },
             selected = currentRoute == AllEngineerInOneDestinations.TOOLS_ROUTE,
+            shape = RectangleShape,
             onClick = {
                 navigateToTools()
                 closeDrawer()
@@ -92,7 +98,9 @@ fun AppDrawer(
 
         NavigationDrawerItem(
             label = { Text(text = "Mapa") },
+            icon = { Icon(Icons.Filled.LocationOn, contentDescription = "Map") },
             selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
+            shape = RectangleShape,
             onClick = {
                 navigateToMap()
                 closeDrawer()
