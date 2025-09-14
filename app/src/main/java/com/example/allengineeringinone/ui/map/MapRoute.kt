@@ -8,9 +8,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.home.battery.BatteryRoute
@@ -30,19 +27,20 @@ fun MapRoute(
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
-            if (isGranted) {
-                mapViewModel.fetchInitialLocation()
-            }
 
+            //informamos al viewModel
+            mapViewModel.onPermissionResult(isGranted)
         }
     )
 
+    // Pedimos los permisos
     LaunchedEffect (Unit) {
         permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
     val cameraPositionState = rememberCameraPositionState()
 
+    // Animación
     LaunchedEffect(uiState.initialLocation) {
         uiState.initialLocation?.let { location ->
             cameraPositionState.animate(
@@ -57,5 +55,6 @@ fun MapRoute(
         cameraPositionState = cameraPositionState,
         openDrawer = openDrawer,
         batteryWidget = { modifier -> BatteryRoute(batteryViewModel, modifier) },
+        onAddMarkerClick = { mapViewModel.addMarker() }
     )
 }

@@ -1,11 +1,17 @@
 package com.example.allengineeringinone.ui.map
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -13,7 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.components.TopAppBar
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -28,7 +39,8 @@ fun MapScreen(
     uiState: MapUIState,
     cameraPositionState: CameraPositionState,
     openDrawer: () -> Unit,
-    batteryWidget: @Composable (Modifier) -> Unit
+    batteryWidget: @Composable (Modifier) -> Unit,
+    onAddMarkerClick: () -> Unit,
 ){
 
     Scaffold(
@@ -46,11 +58,10 @@ fun MapScreen(
                     .padding(16.dp)
             ) {
 
-                Text("Agrega tu propio marcador")
-
                 GoogleMap(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
+                        .weight(1f)
                         .clip(RoundedCornerShape(16.dp))
                         .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
                     ,
@@ -68,6 +79,29 @@ fun MapScreen(
                     }
                 }
 
+                Spacer(Modifier.height(20.dp))
+
+                Button(
+                    onClick = {
+                        Log.i("map", "Click")
+                        onAddMarkerClick()
+                    },
+                    modifier = Modifier.fillMaxWidth().height(60.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (uiState.permissionStatus == PermissionStatus.GRANTED) colorResource(R.color.primary) else colorResource(R.color.gray),
+                        contentColor  = Color.White
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(
+                        text = if (uiState.permissionStatus == PermissionStatus.GRANTED) "Guardar mi punto actual" else "Permiso de ubicación denegado",
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 18.sp
+                    )
+                }
+
+                Spacer(Modifier.height(20.dp))
             }
 
 

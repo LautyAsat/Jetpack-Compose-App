@@ -1,11 +1,15 @@
 package com.example.allengineeringinone.ui.map
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.ui.map.data.model.MapMarker
 import com.example.allengineeringinone.ui.map.data.repository.MapRepository
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.CancellationTokenSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,20 +35,41 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getMarkers().collectLatest { result ->
                 result.onSuccess { markers ->
-                    viewModelState.value = MapUIState(markers = markers)
+                    viewModelState.value = viewModelState.value.copy(markers = markers)
                 }.onFailure { error ->
-                    viewModelState.value = MapUIState(errorMessage = error.message)
+                    viewModelState.value = viewModelState.value.copy(errorMessage = error.message)
                 }
             }
         }
     }
 
-    fun addMarker(latitude: Double, longitude: Double) {
-        viewModelScope.launch {
-            repository.saveMarker(latitude, longitude).onFailure { error ->
-                viewModelState.value = viewModelState.value.copy(errorMessage = error.message)
+    fun addMarker() {
+        try {
+
+            fusedLocationClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                CancellationTokenSource().token // Para cancelar la petición si es necesario
+            ).addOnSuccessListener { location ->
+
+                if(location != null){
+                    viewModelScope.launch {
+                        repository.saveMarker(location.latitude, location.longitude).onFailure { error ->
+                            viewModelState.value = viewModelState.value.copy(errorMessage = error.message)
+                        }
+                    }
+                }
             }
+
+        }catch (e: SecurityException){
+            Log.e("map", "Error al guardar el marcador", e)
+
+            viewModelState.value = viewModelState.value.copy(
+                permissionStatus = PermissionStatus.DENIED,
+                errorMessage = "Permiso de ubicación denegado."
+            )
         }
+
+
     }
 
     fun fetchInitialLocation() {
@@ -60,11 +85,25 @@ class MapViewModel @Inject constructor(
             viewModelState.value = viewModelState.value.copy(errorMessage = "Permiso de ubicación denegado.")
         }
     }
+
+    fun onPermissionResult(isGranted: Boolean) {
+        val newStatus = if (isGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED
+        viewModelState.value = viewModelState.value.copy(permissionStatus = newStatus)
+
+        if (isGranted) {
+            fetchInitialLocation()
+        }
+    }
 }
 
 data class MapUIState(
     val userLocation: LatLng? = null,
     val initialLocation: LatLng? = null,
     val markers: List<MapMarker> = emptyList(),
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val permissionStatus: PermissionStatus = PermissionStatus.UNKNOWN
 )
+
+enum class PermissionStatus {
+    GRANTED, DENIED, UNKNOWN
+}

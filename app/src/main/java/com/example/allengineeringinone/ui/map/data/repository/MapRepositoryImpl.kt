@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.sql.Timestamp
-
+import android.os.Build
 class MapRepositoryImpl(
     private val firebaseStore: FirebaseFirestore
 ): MapRepository{
@@ -43,13 +43,15 @@ class MapRepositoryImpl(
         return try {
             val newMarker = MapMarker(
                 location = GeoPoint(latitude, longitude),
-                name = "Nuevo Marcador"
+                name = Build.MODEL
             )
 
             // Firestore asignará un ID automáticamente
+            Log.i("map", "Se guarod bine")
             firebaseStore.collection("markers").add(newMarker).await()
             Result.success(Unit)
         } catch (e: Exception) {
+            Log.e("map", "Error al guardar el marcador", e)
             Result.failure(e)
         }
     }
