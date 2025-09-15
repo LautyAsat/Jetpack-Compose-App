@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
+import com.example.allengineeringinone.ui.map.data.model.MapUIState
+import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap

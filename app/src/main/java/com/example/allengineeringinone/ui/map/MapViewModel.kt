@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.ui.map.data.model.MapMarker
+import com.example.allengineeringinone.ui.map.data.model.MapUIState
+import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.example.allengineeringinone.ui.map.data.repository.MapRepository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -94,16 +96,4 @@ class MapViewModel @Inject constructor(
             fetchInitialLocation()
         }
     }
-}
-
-data class MapUIState(
-    val userLocation: LatLng? = null,
-    val initialLocation: LatLng? = null,
-    val markers: List<MapMarker> = emptyList(),
-    val errorMessage: String? = null,
-    val permissionStatus: PermissionStatus = PermissionStatus.UNKNOWN
-)
-
-enum class PermissionStatus {
-    GRANTED, DENIED, UNKNOWN
 }
