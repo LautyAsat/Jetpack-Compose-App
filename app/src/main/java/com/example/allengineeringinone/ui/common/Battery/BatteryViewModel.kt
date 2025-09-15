@@ -1,8 +1,8 @@
-package com.example.allengineeringinone.ui.home.battery
+package com.example.allengineeringinone.ui.common.Battery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.allengineeringinone.repositories.BatteryRepository
+import com.example.allengineeringinone.ui.common.Battery.Repository.BatteryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -43,9 +43,9 @@ class BatteryViewModel @Inject constructor(
         val minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60
 
         return when {
-            hours > 0 -> "(${hours}h ${minutes}m)"
-            minutes > 0 -> "(${minutes}m)"
-            else -> "Cargando..."
+            // hours > 0 -> "(${hours}h ${minutes}m)"
+            // minutes > 0 -> "(${minutes}m)"
+            else -> ""
         }
     }
 }

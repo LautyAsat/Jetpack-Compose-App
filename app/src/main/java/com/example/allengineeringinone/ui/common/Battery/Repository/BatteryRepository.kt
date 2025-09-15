@@ -1,14 +1,12 @@
-package com.example.allengineeringinone.repositories
+package com.example.allengineeringinone.ui.common.Battery.Repository
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
-import android.os.Build
-import android.util.Log
-import com.example.allengineeringinone.ui.home.battery.BatteryInfo
-import com.example.allengineeringinone.ui.home.battery.BatteryStatus
+import com.example.allengineeringinone.ui.common.Battery.BatteryInfo
+import com.example.allengineeringinone.ui.common.Battery.BatteryStatus
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -40,17 +38,17 @@ class BatteryRepository @Inject constructor(
                     else -> BatteryStatus.MIDDLE
                 }
 
-                val currentLevelBattery = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+                val currentLevelBattery =
+                    batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
 
 
                 val currentTimestamp = System.currentTimeMillis()
                 var estimatedDischargeMillis = -1L
 
-                if ( lastLevel != -1) {
+                if (lastLevel != -1) {
                     val levelDrop = lastLevel - currentLevelBattery
                     val timeDiff = currentTimestamp - lastTimestamp
 
-                    Log.i("BatteryRepository",levelDrop.toString())
                     if (levelDrop > 0 && timeDiff > 0) {
                         val millisPerPercent = timeDiff.toDouble() / levelDrop.toDouble()
                         estimatedDischargeMillis = (millisPerPercent * currentLevelBattery).toLong()

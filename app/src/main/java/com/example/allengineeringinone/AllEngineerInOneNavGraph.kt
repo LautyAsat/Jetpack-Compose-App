@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.allengineeringinone.ui.home.HomeRoute
 import com.example.allengineeringinone.ui.home.HomeViewModel
-import com.example.allengineeringinone.ui.home.battery.BatteryViewModel
+import com.example.allengineeringinone.ui.common.Battery.BatteryViewModel
 import com.example.allengineeringinone.ui.map.MapRoute
 import com.example.allengineeringinone.ui.tools.ToolsRoute
 
@@ -40,7 +40,6 @@ fun AllEngineerInOneNavGraph(
             val homeViewModel: HomeViewModel = viewModel ()
 
             HomeRoute(
-                batteryViewModel = batteryViewModel,
                 homeViewModel = homeViewModel,
                 openDrawer = openDrawer
             )
@@ -52,7 +51,6 @@ fun AllEngineerInOneNavGraph(
             // ToolsScreen
 
             ToolsRoute(
-                batteryViewModel = batteryViewModel,
                 openDrawer = openDrawer
             )
         }
@@ -63,7 +61,6 @@ fun AllEngineerInOneNavGraph(
             // MapScreen
 
             MapRoute(
-                batteryViewModel = batteryViewModel,
                 openDrawer = openDrawer)
         }
 

@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.home.battery
+package com.example.allengineeringinone.ui.common.Battery
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -10,23 +10,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.allengineeringinone.R
-
-
-@Composable
-fun BatteryRoute(
-    batteryViewModel: BatteryViewModel,
-    modifier: Modifier
-){
-
-    BatteryWidget()
-}
 
 @Composable
 fun BatteryWidget(

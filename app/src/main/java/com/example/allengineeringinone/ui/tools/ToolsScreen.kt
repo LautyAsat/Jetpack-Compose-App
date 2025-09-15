@@ -8,8 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.allengineeringinone.ui.components.TopAppBar
-import com.example.allengineeringinone.ui.home.battery.BatteryViewModel
+import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 
 
 @Composable

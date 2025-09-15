@@ -4,8 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.home.dolar.DolarRoute
-import com.example.allengineeringinone.ui.home.battery.BatteryRoute
-import com.example.allengineeringinone.ui.home.battery.BatteryViewModel
+import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
 import com.example.allengineeringinone.ui.home.call.CallEngineeringCousilRoute
 
 /**
@@ -15,7 +14,6 @@ import com.example.allengineeringinone.ui.home.call.CallEngineeringCousilRoute
  */
 @Composable
 fun HomeRoute(
-    batteryViewModel: BatteryViewModel,
     homeViewModel: HomeViewModel,
     openDrawer: () -> Unit
 ){
@@ -27,7 +25,7 @@ fun HomeRoute(
         uiState = uiState,
         dolarWidget = { modifier -> DolarRoute(modifier) },
         callEngineeringCousil = { modifier -> CallEngineeringCousilRoute(modifier) },
-        batteryWidget = { modifier -> BatteryRoute(batteryViewModel, modifier) },
+        batteryWidget = { modifier -> BatteryWidget(modifier) },
         refreshEngineringFee = homeViewModel::refreshEngineringFee,
         openDrawer = openDrawer
     )

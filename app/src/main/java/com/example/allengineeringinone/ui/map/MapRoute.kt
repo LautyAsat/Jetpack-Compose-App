@@ -1,7 +1,6 @@
 package com.example.allengineeringinone.ui.map
 
 import android.Manifest
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,15 +9,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.allengineeringinone.ui.home.battery.BatteryRoute
-import com.example.allengineeringinone.ui.home.battery.BatteryViewModel
+import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @ExperimentalMaterial3Api
 @Composable
 fun MapRoute(
-    batteryViewModel: BatteryViewModel,
     openDrawer: () -> Unit,
     mapViewModel: MapViewModel = hiltViewModel()
 ){
@@ -54,7 +51,7 @@ fun MapRoute(
         uiState = uiState,
         cameraPositionState = cameraPositionState,
         openDrawer = openDrawer,
-        batteryWidget = { modifier -> BatteryRoute(batteryViewModel, modifier) },
+        batteryWidget = { modifier -> BatteryWidget(modifier) },
         onAddMarkerClick = { mapViewModel.addMarker() }
     )
 }

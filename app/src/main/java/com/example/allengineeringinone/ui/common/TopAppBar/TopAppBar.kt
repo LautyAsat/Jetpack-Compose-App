@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.components
+package com.example.allengineeringinone.ui.common.TopAppBar
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
