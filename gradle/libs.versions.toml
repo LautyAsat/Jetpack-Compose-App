@@ -10,6 +10,8 @@ lifecycleRuntimeKtx = "2.9.3"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 ksp = "2.0.21-1.0.27"
+camerax = "1.5.0"
+accompanist = "0.37.3"
 kotlinx-serialization-json = "1.9.0"
 kotlinx_immutable = "0.4.0"
 maps-compose = "6.7.1"
@@ -32,6 +34,16 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+# Contains the basic camera functionality such as SurfaceRequest
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "camerax" }
+# Contains the CameraXViewfinder composable
+androidx-camera-compose = { module = "androidx.camera:camera-compose", version.ref = "camerax" }
+# Allows us to bind the camera preview to our UI lifecycle
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+# The specific camera implementation that renders the preview
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
+# The helper library to grant the camera permission
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 
 
 [plugins]
