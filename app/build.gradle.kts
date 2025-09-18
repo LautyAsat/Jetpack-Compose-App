@@ -136,4 +136,5 @@ dependencies {
 
     implementation("com.google.guava:guava:31.0.1-android")
     implementation("com.google.guava:listenablefuture:1.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.6.0")
 }

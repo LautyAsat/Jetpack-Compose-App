@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.tools.data.model
+package com.example.allengineeringinone.ui.camera.data.model
 
 enum class CameraAction {
     FLASH,

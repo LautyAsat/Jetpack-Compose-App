@@ -7,7 +7,9 @@ import android.hardware.camera2.CameraManager
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FlashlightService @Inject constructor(
     @ApplicationContext private val context: Context
 ) {

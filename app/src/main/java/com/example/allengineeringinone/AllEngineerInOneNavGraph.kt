@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.allengineeringinone.ui.camera.CameraRoute
 import com.example.allengineeringinone.ui.home.HomeRoute
 import com.example.allengineeringinone.ui.home.HomeViewModel
 import com.example.allengineeringinone.ui.common.Battery.BatteryViewModel
@@ -22,9 +23,6 @@ fun AllEngineerInOneNavGraph(
     openDrawer: () -> Unit,
     startDestination: String = AllEngineerInOneDestinations.HOME_ROUTE,
 ){
-
-    // Lo creamos aquí dado que es compartido por todas las rutas
-    val batteryViewModel: BatteryViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -62,6 +60,14 @@ fun AllEngineerInOneNavGraph(
 
             MapRoute(
                 openDrawer = openDrawer)
+        }
+
+        composable (
+            route = AllEngineerInOneDestinations.CAMERA_ROUTE
+        ){
+            // MapScreen
+
+            CameraRoute()
         }
 
     }

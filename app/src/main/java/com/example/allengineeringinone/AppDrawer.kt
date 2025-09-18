@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
@@ -41,6 +42,7 @@ fun AppDrawer(
     navigateToHome: () -> Unit,
     navigateToTools: () -> Unit,
     navigateToMap: () -> Unit,
+    navigateToCamera: () -> Unit,
 ){
     ModalDrawerSheet (
         drawerState = drawerState,
@@ -103,6 +105,17 @@ fun AppDrawer(
             shape = RectangleShape,
             onClick = {
                 navigateToMap()
+                closeDrawer()
+            }
+        )
+
+        NavigationDrawerItem(
+            label = { Text(text = "Camera") },
+            icon = { Icon(Icons.Filled.AddCircle, contentDescription = "Camera") },
+            selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
+            shape = RectangleShape,
+            onClick = {
+                navigateToCamera()
                 closeDrawer()
             }
         )

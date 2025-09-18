@@ -31,7 +31,7 @@ fun ToolsScreen(
     openDrawer: () -> Unit,
     uiState: ToolsUIState,
     batteryWidget: @Composable (Modifier) -> Unit,
-    handleFlashLightClick: () -> Unit
+    onFlashLightClick: () -> Unit,
 ){
     Scaffold(
         topBar = {
@@ -50,21 +50,23 @@ fun ToolsScreen(
                 Spacer(Modifier.height(20.dp))
 
                 Button(
-                    onClick = { handleFlashLightClick() },
+                    onClick = { onFlashLightClick() },
                     modifier = Modifier.fillMaxWidth().height(60.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (uiState.permissionStatus == PermissionStatus.GRANTED) colorResource(R.color.primary) else colorResource(R.color.gray),
+                        containerColor = if (uiState.permissionCameraStatus == PermissionStatus.GRANTED) colorResource(R.color.primary) else colorResource(R.color.gray),
                         contentColor  = Color.White
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
-                        text = if (uiState.permissionStatus == PermissionStatus.GRANTED) "Encender Linterna" else "Permiso de ubicación denegado",
+                        text = if (uiState.permissionCameraStatus == PermissionStatus.GRANTED) "Encender Linterna" else "Permiso de ubicación denegado",
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Black,
                         fontSize = 18.sp
                     )
                 }
+
+                Spacer(Modifier.height(20.dp))
             }
         }
     )
