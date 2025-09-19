@@ -33,14 +33,13 @@ class CameraViewModel @Inject constructor(
     }
 
     fun onStartRecording(){
-        if(viewModelState.value.permissionCameraStatus != PermissionStatus.GRANTED || !viewModelState.value.isCameraReady) {
+        if(viewModelState.value.permissionCameraStatus != PermissionStatus.GRANTED || !viewModelState.value.isCameraReady || viewModelState.value.cameraAction != CameraAction.VIDEO) {
             Log.d("DEBUG_VIDEO", "No llego ni a pasar el viewmodel") // <-- LOG 9
-            viewModelState.update { it.copy(cameraAction = CameraAction.VIDEO) }
             return
         }
 
         videoRecordingService.startRecording()
-        viewModelState.update { it.copy(isRecording = true) }
+        viewModelState.update { it.copy(isRecording = true)}
     }
 
     fun onStopRecording() {
@@ -70,20 +69,14 @@ class CameraViewModel @Inject constructor(
             permissionCameraStatus = if (isCameraGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED,
             permissionAudioStatus = if (isAudioGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED
         )}
+    }
 
-        // Si se concedió el permiso que necesitábamos, ejecutamos la acción pendiente
-        if (isCameraGranted) {
-            when (viewModelState.value.cameraAction) {
-                CameraAction.VIDEO -> {
-                    // Si también se concedió el de audio, el usuario puede volver a intentar
-                    // la acción de grabar, que ahora estará habilitada.
-                }
-                else -> {}
-            }
-        }
+    fun onPhotoMode(){
+        viewModelState.update { it.copy(cameraAction = CameraAction.PHOTO) }
+    }
 
-        // Limpiamos la acción pendiente
-        viewModelState.update { it.copy(cameraAction = CameraAction.NONE) }
+    fun onVideoMode(){
+        viewModelState.update { it.copy(cameraAction = CameraAction.VIDEO) }
     }
 }
 

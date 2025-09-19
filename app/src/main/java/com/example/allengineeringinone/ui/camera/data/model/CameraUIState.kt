@@ -6,6 +6,6 @@ data class CameraUIState(
     val isRecording: Boolean = false,
     val permissionCameraStatus: PermissionStatus = PermissionStatus.UNKNOWN,
     val permissionAudioStatus: PermissionStatus = PermissionStatus.UNKNOWN,
-    val cameraAction: CameraAction = CameraAction.NONE,
+    val cameraAction: CameraAction = CameraAction.PHOTO,
     val isCameraReady: Boolean = false
 )

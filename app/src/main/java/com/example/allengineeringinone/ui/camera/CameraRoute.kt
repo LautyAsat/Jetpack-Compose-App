@@ -2,6 +2,7 @@ package com.example.allengineeringinone.ui.camera
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.view.PreviewView
@@ -33,6 +34,15 @@ fun CameraRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
     val previewView = remember { PreviewView(context) }
 
+    // --- LAUNCHER PARA CÁMARA Y AUDIO ---
+    val videoPermissionsLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+        onResult = { permissionsMap ->
+            cameraViewModel.onPermissionsResult(permissionsMap)
+        }
+    )
+
+
     /*
     * Verificamos si ya tenemos los permisos
     * */
@@ -44,6 +54,13 @@ fun CameraRoute(
         val isAudioGranted = ContextCompat.checkSelfPermission(
             context, Manifest.permission.RECORD_AUDIO
         ) == PackageManager.PERMISSION_GRANTED
+
+
+        if(!isCameraGranted && !isAudioGranted){
+            videoPermissionsLauncher.launch(
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+            )
+        }
 
         // 2. Informamos al ViewModel con el mapa corregido
         cameraViewModel.onPermissionsResult(mapOf(
@@ -60,31 +77,21 @@ fun CameraRoute(
         }
     }
 
-    // --- LAUNCHER PARA CÁMARA Y AUDIO ---
-    val videoPermissionsLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestMultiplePermissions(),
-        onResult = { permissionsMap ->
-            cameraViewModel.onPermissionsResult(permissionsMap)
-        }
-    )
-
-
-    LaunchedEffect(uiState.cameraAction) {
-        when (uiState.cameraAction) {
-            CameraAction.FLASH -> {}
-            CameraAction.VIDEO -> videoPermissionsLauncher.launch(
-                arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-            )
-            CameraAction.PHOTO -> { /* No hacer nada */ }
-            else -> {}
+    fun onCameraClick(){
+        if(uiState.cameraAction == CameraAction.VIDEO){
+            cameraViewModel.onStartRecording()
+        } else {
+            Log.i("S","Sacando una photo")
+            //sacar photo
         }
     }
 
-
     CameraScreen(
         uiState = uiState,
-        onRecordClick = cameraViewModel::onStartRecording ,
+        onRecordClick = { onCameraClick() } ,
         onStopRecording = cameraViewModel::onStopRecording,
+        onPhotoMode = cameraViewModel::onPhotoMode,
+        onVideoMode = cameraViewModel::onVideoMode,
         cameraPreview = {
             AndroidView(
                 factory = { previewView },
