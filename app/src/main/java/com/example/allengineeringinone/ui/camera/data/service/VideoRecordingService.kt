@@ -37,7 +37,7 @@ class VideoRecordingService @Inject constructor(
 
     // Necesitamos el LifecycleOwner de la UI para vincular la cámara
     @SuppressLint("MissingPermission")
-    suspend fun initialize(lifecycleOwner: LifecycleOwner, surfaceProvider: Preview.SurfaceProvider) {
+    suspend fun initialize(lifecycleOwner: LifecycleOwner, surfaceProvider: Preview.SurfaceProvider, cameraSelector: CameraSelector) {
 
         Log.d("DEBUG_VIDEO", "Service: initialize() llamado.") // <-- LOG 4
 
@@ -67,7 +67,7 @@ class VideoRecordingService @Inject constructor(
             // Vinculamos el caso de uso al ciclo de vida. CameraX se encarga del resto.
             cameraProvider?.bindToLifecycle(
                 lifecycleOwner,
-                CameraSelector.DEFAULT_BACK_CAMERA,
+                cameraSelector,
                 preview,
                 videoCapture
             )

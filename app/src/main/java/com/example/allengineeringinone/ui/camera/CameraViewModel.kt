@@ -1,6 +1,7 @@
 package com.example.allengineeringinone.ui.camera
 import android.Manifest
 import android.util.Log
+import androidx.camera.core.CameraSelector
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -24,10 +25,10 @@ class CameraViewModel @Inject constructor(
     private val viewModelState = MutableStateFlow(CameraUIState())
     val uiState = viewModelState.asStateFlow()
 
-    fun initializeCamera(lifecycleOwner: LifecycleOwner, previewView: PreviewView) {
+    fun initializeCamera(lifecycleOwner: LifecycleOwner, previewView: PreviewView, selectedCamera: CameraSelector) {
         viewModelScope.launch {
             // Le pasamos el 'surfaceProvider' de la PreviewView al servicio
-            videoRecordingService.initialize(lifecycleOwner, previewView.surfaceProvider)
+            videoRecordingService.initialize(lifecycleOwner, previewView.surfaceProvider, selectedCamera)
             viewModelState.update { it.copy(isCameraReady = true) }
         }
     }
@@ -77,6 +78,17 @@ class CameraViewModel @Inject constructor(
 
     fun onVideoMode(){
         viewModelState.update { it.copy(cameraAction = CameraAction.VIDEO) }
+    }
+
+    fun onSwitchCamera() {
+        val currentSelector = viewModelState.value.selectedCamera
+        val newSelector = if (currentSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
+
+        viewModelState.update { it.copy(selectedCamera = newSelector, isCameraReady = false) }
     }
 }
 

@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.EmergencyRecording
 import androidx.compose.material.icons.filled.FiberManualRecord
+import androidx.compose.material.icons.filled.FlipCameraAndroid
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,6 +41,7 @@ fun CameraScreen(
     onStopRecording: () -> Unit,
     onPhotoMode: () -> Unit,
     onVideoMode: () -> Unit,
+    onSwitchCamera: () -> Unit,
     cameraPreview: @Composable () -> Unit
 ){
 
@@ -114,20 +116,31 @@ fun CameraScreen(
                     modifier = Modifier.padding(16.dp).fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ){
+                    if (!uiState.isRecording){
+
                         IconButton(
-                            onClick = onPhotoMode,
-                            modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.PHOTO) Color.Red else Color.Black, shape = CircleShape),
+                            onClick = onSwitchCamera,
+                            modifier = Modifier.padding(16.dp).background(Color.Blue, shape = CircleShape),
                         )
                         {
-                            Icon(Icons.Filled.CameraAlt, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(30.dp))
+                            Icon(Icons.Filled.FlipCameraAndroid, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(20.dp))
                         }
-                        IconButton(
-                            onClick = onVideoMode,
-                            modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.VIDEO) Color.Red else Color.Black, shape = CircleShape),
-                        )
-                        {
-                            Icon(Icons.Filled.EmergencyRecording, contentDescription = "Grabar", tint = Color.White, modifier = Modifier.size(30.dp))
-                        }
+                    }
+
+                    IconButton(
+                        onClick = onPhotoMode,
+                        modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.PHOTO) Color.Red else Color.Black, shape = CircleShape),
+                    )
+                    {
+                        Icon(Icons.Filled.CameraAlt, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(30.dp))
+                    }
+                    IconButton(
+                        onClick = onVideoMode,
+                        modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.VIDEO) Color.Red else Color.Black, shape = CircleShape),
+                    )
+                    {
+                        Icon(Icons.Filled.EmergencyRecording, contentDescription = "Grabar", tint = Color.White, modifier = Modifier.size(30.dp))
+                    }
                 }
             }
         }
