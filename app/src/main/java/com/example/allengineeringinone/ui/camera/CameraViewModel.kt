@@ -2,12 +2,18 @@ package com.example.allengineeringinone.ui.camera
 import android.Manifest
 import android.util.Log
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.video.Recorder
+import androidx.camera.video.VideoCapture
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.ui.camera.data.model.CameraAction
 import com.example.allengineeringinone.ui.camera.data.model.CameraUIState
+import com.example.allengineeringinone.ui.camera.data.service.CameraService
+import com.example.allengineeringinone.ui.camera.data.service.PhotoCaptureService
 import com.example.allengineeringinone.ui.camera.data.service.VideoRecordingService
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,18 +25,45 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CameraViewModel @Inject constructor(
-    private val videoRecordingService: VideoRecordingService
+    private val videoRecordingService: VideoRecordingService,
+    private val photoCaptureService: PhotoCaptureService,
+    private val cameraService: CameraService,
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(CameraUIState())
     val uiState = viewModelState.asStateFlow()
 
-    fun initializeCamera(lifecycleOwner: LifecycleOwner, previewView: PreviewView, selectedCamera: CameraSelector) {
+    //casos de uso
+    private val previewUseCase = Preview.Builder().build()
+    private val imageCaptureUseCase = ImageCapture.Builder().build()
+    private val videoCaptureUseCase = VideoCapture.withOutput(Recorder.Builder().build())
+
+    fun initializeCamera(lifecycleOwner: LifecycleOwner, previewView: PreviewView) {
+        previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
+        bindCamera(lifecycleOwner)
+    }
+
+    private fun bindCamera(lifecycleOwner: LifecycleOwner) {
         viewModelScope.launch {
-            // Le pasamos el 'surfaceProvider' de la PreviewView al servicio
-            videoRecordingService.initialize(lifecycleOwner, previewView.surfaceProvider, selectedCamera)
+            // Según el modo actual, decidimos qué casos de uso vincular
+            val imageCapture = if (viewModelState.value.cameraAction == CameraAction.PHOTO) imageCaptureUseCase else null
+            val videoCapture = if (viewModelState.value.cameraAction == CameraAction.VIDEO) videoCaptureUseCase else null
+
+            cameraService.bindUseCases(
+                lifecycleOwner,
+                viewModelState.value.selectedCamera,
+                previewUseCase,
+                imageCapture,
+                videoCapture
+            )
+
             viewModelState.update { it.copy(isCameraReady = true) }
         }
+    }
+
+    fun onTakePhotoClick() {
+        if (!viewModelState.value.isCameraReady) return
+        photoCaptureService.takePhoto(imageCaptureUseCase)
     }
 
     fun onStartRecording(){
@@ -39,9 +72,10 @@ class CameraViewModel @Inject constructor(
             return
         }
 
-        videoRecordingService.startRecording()
+        videoRecordingService.startRecording(videoCaptureUseCase)
         viewModelState.update { it.copy(isRecording = true)}
     }
+
 
     fun onStopRecording() {
         videoRecordingService.stopRecording()

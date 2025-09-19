@@ -46,7 +46,7 @@ fun CameraRoute(
     /*
     * Verificamos si ya tenemos los permisos
     * */
-    DisposableEffect(uiState.selectedCamera) {
+    DisposableEffect(uiState.selectedCamera, uiState.cameraAction) {
         val isCameraGranted = ContextCompat.checkSelfPermission(
             context, Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
@@ -69,7 +69,7 @@ fun CameraRoute(
         ))
 
         // 3. Inicializamos la cámara
-        cameraViewModel.initializeCamera(lifecycleOwner, previewView, uiState.selectedCamera)
+        cameraViewModel.initializeCamera(lifecycleOwner, previewView)
 
         // 4. El bloque onDispose se encarga de la limpieza cuando la pantalla desaparece
         onDispose {
@@ -81,8 +81,8 @@ fun CameraRoute(
         if(uiState.cameraAction == CameraAction.VIDEO){
             cameraViewModel.onStartRecording()
         } else {
+            cameraViewModel.onTakePhotoClick()
             Log.i("S","Sacando una photo")
-            //sacar photo
         }
     }
 

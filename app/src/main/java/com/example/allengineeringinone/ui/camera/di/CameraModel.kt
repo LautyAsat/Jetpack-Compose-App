@@ -1,6 +1,8 @@
 package com.example.allengineeringinone.ui.camera.di
 
 import android.content.Context
+import com.example.allengineeringinone.ui.camera.data.repository.PhotoRepository
+import com.example.allengineeringinone.ui.camera.data.repository.PhotoRepositoryImpl
 import com.example.allengineeringinone.ui.camera.data.repository.VideoRepository
 import com.example.allengineeringinone.ui.camera.data.repository.VideoRepositoryImpl
 import dagger.Module
@@ -19,5 +21,13 @@ object CameraModel {
         @ApplicationContext context: Context
     ): VideoRepository {
         return VideoRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun providePhotoRepository(
+        @ApplicationContext context: Context
+    ): PhotoRepository {
+        return PhotoRepositoryImpl(context)
     }
 }
