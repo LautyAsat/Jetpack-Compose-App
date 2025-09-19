@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
@@ -100,7 +102,7 @@ fun AppDrawer(
 
         NavigationDrawerItem(
             label = { Text(text = "Mapa") },
-            icon = { Icon(Icons.Filled.LocationOn, contentDescription = "Map") },
+            icon = { Icon(Icons.Filled.Map, contentDescription = "Map") },
             selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
             shape = RectangleShape,
             onClick = {
@@ -111,7 +113,7 @@ fun AppDrawer(
 
         NavigationDrawerItem(
             label = { Text(text = "Camera") },
-            icon = { Icon(Icons.Filled.AddCircle, contentDescription = "Camera") },
+            icon = { Icon(Icons.Filled.CameraAlt, contentDescription = "Camera") },
             selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
             shape = RectangleShape,
             onClick = {

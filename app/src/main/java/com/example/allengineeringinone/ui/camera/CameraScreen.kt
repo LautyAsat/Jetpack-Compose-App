@@ -3,6 +3,7 @@ package com.example.allengineeringinone.ui.camera
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.icons.filled.Camera
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,7 +51,7 @@ fun CameraScreen(
                     modifier = Modifier.padding(16.dp).background(Color.Black, shape = CircleShape),
                 )
                 {
-                    Icon(Icons.Filled.PlayArrow, contentDescription = "Grabar", tint = Color.White)
+                    Icon(Icons.Filled.Camera, contentDescription = "Grabar", tint = Color.White)
                 }
 
                 IconButton(
@@ -57,7 +59,7 @@ fun CameraScreen(
                     modifier = Modifier.padding(16.dp).background(Color.Black, shape = CircleShape),
                 )
                 {
-                    Icon(Icons.Filled.ArrowDropDown, contentDescription = "Parar", tint = Color.White)
+                    Icon(Icons.Filled.Stop, contentDescription = "Parar", tint = Color.White)
                 }
             }
         }
