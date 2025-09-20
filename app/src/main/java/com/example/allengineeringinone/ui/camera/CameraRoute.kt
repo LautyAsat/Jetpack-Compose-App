@@ -56,7 +56,7 @@ fun CameraRoute(
         ) == PackageManager.PERMISSION_GRANTED
 
 
-        if(!isCameraGranted && !isAudioGranted){
+        if(!isCameraGranted || !isAudioGranted){
             videoPermissionsLauncher.launch(
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
             )
@@ -82,7 +82,6 @@ fun CameraRoute(
             cameraViewModel.onStartRecording()
         } else {
             cameraViewModel.onTakePhotoClick()
-            Log.i("S","Sacando una photo")
         }
     }
 

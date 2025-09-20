@@ -58,7 +58,7 @@ fun ToolsScreen(
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
-                        text = if (uiState.permissionCameraStatus == PermissionStatus.GRANTED) "Encender Linterna" else "Permiso de ubicación denegado",
+                        text = if (uiState.permissionCameraStatus == PermissionStatus.GRANTED) "Encender Linterna" else "Permiso de camara denegado",
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Black,
                         fontSize = 18.sp
