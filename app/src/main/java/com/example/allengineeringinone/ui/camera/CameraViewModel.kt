@@ -62,12 +62,12 @@ class CameraViewModel @Inject constructor(
     }
 
     fun onTakePhotoClick() {
-        if (!viewModelState.value.isCameraReady) return
+        if (!viewModelState.value.isCameraReady || !viewModelState.value.isCameraReady) return
         photoCaptureService.takePhoto(imageCaptureUseCase)
     }
 
     fun onStartRecording(){
-        if(viewModelState.value.permissionCameraStatus != PermissionStatus.GRANTED || !viewModelState.value.isCameraReady || viewModelState.value.cameraAction != CameraAction.VIDEO) {
+        if(viewModelState.value.permissionCameraStatus != PermissionStatus.GRANTED || viewModelState.value.permissionAudioStatus != PermissionStatus.GRANTED || !viewModelState.value.isCameraReady || viewModelState.value.cameraAction != CameraAction.VIDEO) {
             Log.d("DEBUG_VIDEO", "No llego ni a pasar el viewmodel") // <-- LOG 9
             return
         }
