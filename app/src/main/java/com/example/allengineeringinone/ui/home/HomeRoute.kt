@@ -1,32 +1,43 @@
 package com.example.allengineeringinone.ui.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.allengineeringinone.ui.home.dolar.DolarRoute
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
-import com.example.allengineeringinone.ui.home.call.CallEngineeringCousilRoute
+import com.example.allengineeringinone.ui.home.data.model.HomeEvent
+import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 /**
  * Renderiza la homeRoute
  *
  * @param openDrawer (evento) solicita abrir el open drawer
  */
+
 @Composable
 fun HomeRoute(
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel = hiltViewModel(),
     openDrawer: () -> Unit
 ){
-    val uiState: HomeViewModelState by homeViewModel.uiState.collectAsStateWithLifecycle()
+    val uiState: HomeUIState by homeViewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
-    // TODO: !Crear los Viewmodels aquí.
+    LaunchedEffect(Unit) {
+        homeViewModel.events.collect { event ->
+            when (event) {
+                is HomeEvent.LaunchIntent -> {
+                    context.startActivity(event.intent)
+                }
+            }
+        }
+    }
 
     HomeScreen(
         uiState = uiState,
-        dolarWidget = { modifier -> DolarRoute(modifier) },
-        callEngineeringCousil = { modifier -> CallEngineeringCousilRoute(modifier) },
+        callEngineeringCousil = homeViewModel::callEngineeringCousil,
         batteryWidget = { modifier -> BatteryWidget(modifier) },
-        refreshEngineringFee = homeViewModel::refreshEngineringFee,
         openDrawer = openDrawer
     )
 }

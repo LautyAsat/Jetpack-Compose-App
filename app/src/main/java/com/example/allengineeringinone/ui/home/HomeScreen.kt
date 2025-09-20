@@ -21,17 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
+import com.example.allengineeringinone.ui.common.components.DolarWidget
+import com.example.allengineeringinone.ui.common.components.PrimaryButton
+import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    uiState: HomeViewModelState,
-    dolarWidget: @Composable (Modifier) -> Unit,
+    uiState: HomeUIState,
+    openDrawer: () -> Unit,
     batteryWidget: @Composable (Modifier) -> Unit,
-    callEngineeringCousil: @Composable (Modifier) -> Unit,
-    refreshEngineringFee: () -> Unit,
-    openDrawer: () -> Unit
+    callEngineeringCousil: () -> Unit
 ){
     Scaffold(
         topBar = {
@@ -47,9 +48,9 @@ fun HomeScreen(
                     .padding(16.dp)
             ) {
 
-                dolarWidget(
-                    Modifier
-                        .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
+                DolarWidget(
+                    uiState.dolarCotization,
+                    Modifier.border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
                 )
 
                 Spacer(Modifier.height(20.dp))
@@ -65,11 +66,11 @@ fun HomeScreen(
 
                 Spacer(Modifier.height(20.dp))
 
-
-                callEngineeringCousil(
+                PrimaryButton(
                     Modifier
-                        .height(60.dp)
-
+                        .height(60.dp),
+                    callEngineeringCousil,
+                    "Ver tarifas",
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))

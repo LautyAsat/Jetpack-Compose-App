@@ -1,4 +1,4 @@
-package com.example.allengineeringinone.ui.home.dolar
+package com.example.allengineeringinone.ui.common.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -17,35 +16,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.allengineeringinone.R
+import com.example.allengineeringinone.ui.home.data.model.DolarCotization
 
-
-// Este es el punto de entrada para el widget del dólar.
-// Se encarga de obtener el ViewModel y pasar el estado a la vista.
-@Composable
-fun DolarRoute(
-    modifier: Modifier = Modifier
-    // No necesita parámetros, ya que crea su propio ViewModel
-) {
-    val dolarViewModel: DolarViewModel = viewModel()
-    val uiState: DolarViewModelState by dolarViewModel.uiState.collectAsStateWithLifecycle()
-
-    DolarWidget(
-        uiState = uiState,
-        refreshDolar = dolarViewModel::refreshDolar,
-        modifier = modifier
-    )
-}
-
-// Este es el composable "tonto" que solo dibuja la UI.
-// No tiene idea de ViewModels, repositorios, etc.
 
 @Composable
 fun DolarWidget(
-    uiState: DolarViewModelState,
-    refreshDolar: () -> Unit,
+    dolarCotization: DolarCotization?,
     modifier: Modifier = Modifier
 ){
 
@@ -78,7 +55,7 @@ fun DolarWidget(
                     )
 
                     Text(
-                        text = "$ ${uiState.dolarCotization?.buy}",
+                        text = "$ ${dolarCotization?.buy}",
                         modifier = Modifier.fillMaxWidth().padding(0.dp,20.dp,0.dp,8.dp),
                         textAlign = TextAlign.Center,
                         color = colorResource(id = R.color.dolar_green),
@@ -98,7 +75,7 @@ fun DolarWidget(
                     )
 
                     Text(
-                        text = "$ ${uiState.dolarCotization?.sell}",
+                        text = "$ ${dolarCotization?.sell}",
                         modifier = Modifier.fillMaxWidth().padding(0.dp,20.dp,0.dp,8.dp),
                         textAlign = TextAlign.Center,
                         color = colorResource(id = R.color.dolar_green),
@@ -109,7 +86,7 @@ fun DolarWidget(
             }
 
             Text(
-                "Actualizado por última vez: ${uiState.dolarCotization?.date}",
+                "Actualizado por última vez: ${dolarCotization?.date}",
                 modifier = Modifier.fillMaxWidth().padding(0.dp,0.dp,16.dp, 0.dp),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light)

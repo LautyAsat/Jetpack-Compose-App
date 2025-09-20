@@ -1,35 +1,20 @@
-package com.example.allengineeringinone.repositories
+package com.example.allengineeringinone.ui.home.data.repository
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
-import com.google.gson.annotations.SerializedName
+import com.example.allengineeringinone.ui.home.data.model.DolarCotization
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Locale
-
-data class DolarCotization(
-    @SerializedName("fechaActualizacion")
-    val date: String,
-
-    @SerializedName("compra")
-    val buy: Double,
-
-    @SerializedName("venta")
-    val sell: Double,
-)
+import javax.inject.Singleton
 
 interface DolarCotizationService {
     @GET("dolares/oficial")
     suspend fun getDolarCotization(): DolarCotization
 }
 
-class DolarCotizationRepository {
 
+@Singleton
+class DolarCotizationRepositoryImpl : DolarCotizationRepository {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://dolarapi.com/v1/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -46,12 +31,10 @@ class DolarCotizationRepository {
             .split(".")[0]
 
 
-        println("$dateWithoutTime $time")
-
         return "$dateWithoutTime $time"
     }
 
-    suspend fun getDolarCotization(): DolarCotization {
+    override suspend fun getDolarCotization(): DolarCotization {
 
         var dolarCotization: DolarCotization
 
@@ -76,3 +59,4 @@ class DolarCotizationRepository {
         return dolarCotization
     }
 }
+

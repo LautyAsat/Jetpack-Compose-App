@@ -34,11 +34,7 @@ fun AllEngineerInOneNavGraph(
         composable (
             route = AllEngineerInOneDestinations.HOME_ROUTE
         ){
-
-            val homeViewModel: HomeViewModel = viewModel ()
-
             HomeRoute(
-                homeViewModel = homeViewModel,
                 openDrawer = openDrawer
             )
         }
