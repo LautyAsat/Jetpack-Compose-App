@@ -37,14 +37,13 @@ fun MapScreen(
     uiState: MapUIState,
     cameraPositionState: CameraPositionState,
     openDrawer: () -> Unit,
-    batteryWidget: @Composable (Modifier) -> Unit,
     onAddMarkerClick: () -> Unit,
 ){
 
     Scaffold(
         topBar = {
             // Barra superior de la app.
-            TopAppBar(openDrawer, batteryWidget)
+            TopAppBar(openDrawer)
         },
 
         content = { paddingValues ->

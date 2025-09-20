@@ -37,7 +37,6 @@ fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         callEngineeringCousil = homeViewModel::callEngineeringCousil,
-        batteryWidget = { modifier -> BatteryWidget(modifier) },
         openDrawer = openDrawer
     )
 }

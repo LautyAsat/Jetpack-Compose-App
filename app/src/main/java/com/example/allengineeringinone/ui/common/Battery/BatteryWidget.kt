@@ -19,18 +19,13 @@ import com.example.allengineeringinone.R
 
 @Composable
 fun BatteryWidget(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: BatteryViewModel = hiltViewModel()
 ) {
-    // 1. El Widget pide su propio ViewModel a Hilt.
-    // Hilt gestiona su ciclo de vida de forma inteligente.
-    val viewModel: BatteryViewModel = hiltViewModel()
-
-    // 2. Observa el estado del ViewModel.
     val batteryLevel by viewModel.batteryUiState.collectAsStateWithLifecycle()
 
-    // 3. Dibuja la UI con el estado actual.
     Column(
-        modifier = Modifier.padding(4.dp, 4.dp, 16.dp, 4.dp )
+        modifier = modifier.padding(4.dp, 4.dp, 16.dp, 4.dp )
     ){
         Image(
             painter = painterResource(R.drawable.ic_battery_f4), // o el ícono que quieras

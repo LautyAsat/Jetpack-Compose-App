@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import com.example.allengineeringinone.ui.common.Battery.BatteryInfo
-import com.example.allengineeringinone.ui.common.Battery.BatteryStatus
+import com.example.allengineeringinone.ui.common.Battery.model.BatteryStatus
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

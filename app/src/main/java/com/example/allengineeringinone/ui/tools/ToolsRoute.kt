@@ -44,7 +44,6 @@ fun ToolsRoute(
     ToolsScreen(
         openDrawer,
         uiState = uiState,
-        batteryWidget = { modifier -> BatteryWidget(modifier) },
         onFlashLightClick = toolsViewModel::onFlashToggle,
     )
 }

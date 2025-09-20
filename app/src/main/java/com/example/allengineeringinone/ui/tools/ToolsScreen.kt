@@ -30,12 +30,11 @@ import com.example.allengineeringinone.R
 fun ToolsScreen(
     openDrawer: () -> Unit,
     uiState: ToolsUIState,
-    batteryWidget: @Composable (Modifier) -> Unit,
     onFlashLightClick: () -> Unit,
 ){
     Scaffold(
         topBar = {
-            TopAppBar(openDrawer, batteryWidget)
+            TopAppBar(openDrawer)
         },
 
         content = { paddingValues ->

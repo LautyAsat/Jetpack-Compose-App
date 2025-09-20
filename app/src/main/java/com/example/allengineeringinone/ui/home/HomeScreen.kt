@@ -31,13 +31,12 @@ import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 fun HomeScreen(
     uiState: HomeUIState,
     openDrawer: () -> Unit,
-    batteryWidget: @Composable (Modifier) -> Unit,
     callEngineeringCousil: () -> Unit
 ){
     Scaffold(
         topBar = {
             // Barra superior de la app.
-            TopAppBar(openDrawer, batteryWidget)
+            TopAppBar(openDrawer)
         },
         content = { paddingValues ->
             // Contenido principal de la pantalla, debajo de la barra superior.
@@ -70,7 +69,7 @@ fun HomeScreen(
                     Modifier
                         .height(60.dp),
                     callEngineeringCousil,
-                    "Ver tarifas",
+                    "Llamar al Consejo",
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))

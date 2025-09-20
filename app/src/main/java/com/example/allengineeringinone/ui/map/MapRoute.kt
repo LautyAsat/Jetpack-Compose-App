@@ -51,7 +51,6 @@ fun MapRoute(
         uiState = uiState,
         cameraPositionState = cameraPositionState,
         openDrawer = openDrawer,
-        batteryWidget = { modifier -> BatteryWidget(modifier) },
         onAddMarkerClick = { mapViewModel.addMarker() }
     )
 }

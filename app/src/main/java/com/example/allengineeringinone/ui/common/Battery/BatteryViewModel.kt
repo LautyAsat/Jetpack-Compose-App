@@ -3,6 +3,8 @@ package com.example.allengineeringinone.ui.common.Battery
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.ui.common.Battery.Repository.BatteryRepository
+import com.example.allengineeringinone.ui.common.Battery.model.BatteryStatus
+import com.example.allengineeringinone.ui.common.Battery.model.BatteryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,9 +19,9 @@ import javax.inject.Inject
  * compartiendo el último valor con todos los observadores y manteniéndolo vivo
  * mientras la UI esté visible.
  * */
+
 @HiltViewModel
 class BatteryViewModel @Inject constructor(
-    // Hilt inyecta el ÚNICO Singleton de BatteryRepository.
     batteryRepository: BatteryRepository
 ) : ViewModel() {
 
@@ -48,19 +50,6 @@ class BatteryViewModel @Inject constructor(
             else -> ""
         }
     }
-}
-
-data class BatteryUiState(
-    val level: Int = 0,
-    val status: BatteryStatus = BatteryStatus.MIDDLE,
-    val timeToOffFormatted: String = "" // String formateado para la UI
-)
-
-enum class BatteryStatus {
-    LOW,
-    MIDDLE,
-    HIGH,
-    FULL
 }
 
 data class BatteryInfo(
