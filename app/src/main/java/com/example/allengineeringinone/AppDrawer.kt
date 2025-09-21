@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Anchor
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Home
@@ -45,6 +46,7 @@ fun AppDrawer(
     navigateToTools: () -> Unit,
     navigateToMap: () -> Unit,
     navigateToCamera: () -> Unit,
+    navigateToAR: () -> Unit
 ){
     ModalDrawerSheet (
         drawerState = drawerState,
@@ -101,6 +103,17 @@ fun AppDrawer(
         )
 
         NavigationDrawerItem(
+            label = { Text(text = "Regla") },
+            icon = { Icon(Icons.Filled.Anchor, contentDescription = "AR") },
+            selected = currentRoute == AllEngineerInOneDestinations.AR_ROUTE,
+            shape = RectangleShape,
+            onClick = {
+                navigateToAR()
+                closeDrawer()
+            }
+        )
+
+        NavigationDrawerItem(
             label = { Text(text = "Mapa") },
             icon = { Icon(Icons.Filled.Map, contentDescription = "Map") },
             selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
@@ -114,7 +127,7 @@ fun AppDrawer(
         NavigationDrawerItem(
             label = { Text(text = "Camera") },
             icon = { Icon(Icons.Filled.CameraAlt, contentDescription = "Camera") },
-            selected = currentRoute == AllEngineerInOneDestinations.MAPS_ROUTE,
+            selected = currentRoute == AllEngineerInOneDestinations.CAMERA_ROUTE,
             shape = RectangleShape,
             onClick = {
                 navigateToCamera()

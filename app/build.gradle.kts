@@ -65,6 +65,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     // Compose navigation
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -141,4 +144,19 @@ dependencies {
 
     // Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
+
+    // ARCore
+//    implementation("androidx.xr.arcore:arcore:1.0.0-alpha05")
+//    implementation("androidx.xr.arcore:arcore-guava:1.0.0-alpha05")
+//    implementation("androidx.xr.arcore:arcore-rxjava3:1.0.0-alpha05")
+
+    // ARCore (si no lo tenés ya)
+    implementation("com.google.ar:core:1.50.0")
+    // Sceneform y ArFragment (el kit para ensamblar la UI de AR)
+    //implementation(libs.sceneform.ux)
+    implementation("io.github.sceneview:arsceneview:2.3.0")
+    //implementation("io.github.sceneview:sceneview:2.3.0")
+
+    //Appcompact
+    implementation(libs.androidx.appcompat)
 }

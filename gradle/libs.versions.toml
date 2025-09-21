@@ -1,5 +1,6 @@
 [versions]
 agp = "8.12.2"
+appcompat = "1.7.1"
 kotlin = "2.0.21"
 hilt = "2.57.1"
 coreKtx = "1.17.0"
@@ -15,8 +16,13 @@ accompanist = "0.37.3"
 kotlinx-serialization-json = "1.9.0"
 kotlinx_immutable = "0.4.0"
 maps-compose = "6.7.1"
+sceneformUx = "1.17.1"
+material = "1.13.0"
+activity = "1.11.0"
+constraintlayout = "2.2.1"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -44,6 +50,10 @@ androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycl
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
 # The helper library to grant the camera permission
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+sceneform-ux = { module = "com.google.ar.sceneform.ux:sceneform-ux", version.ref = "sceneformUx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 
 [plugins]

@@ -11,8 +11,8 @@ object AllEngineerInOneDestinations {
     const val HOME_ROUTE = "home"
     const val TOOLS_ROUTE = "tools"
     const val MAPS_ROUTE = "maps"
-
     const val CAMERA_ROUTE = "camera"
+    const val AR_ROUTE = "ar"
 }
 
 
@@ -55,6 +55,16 @@ class AllEngineerInOneNavigation(navController: NavController) {
 
     val navigationToCamera: () -> Unit =  {
         navController.navigate(AllEngineerInOneDestinations.CAMERA_ROUTE) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+
+    val navigationToAR: () -> Unit =  {
+        navController.navigate(AllEngineerInOneDestinations.AR_ROUTE) {
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }

@@ -62,7 +62,8 @@ fun AllEngineerInOneApp(){
                 navigateToTools = navigationActions.navigationToTools,
                 navigateToHome = navigationActions.navigationToHome,
                 navigateToMap = navigationActions.navigationToMap,
-                navigateToCamera = navigationActions.navigationToCamera
+                navigateToCamera = navigationActions.navigationToCamera,
+                navigateToAR = navigationActions.navigationToAR
             )
         },
         gesturesEnabled = false,

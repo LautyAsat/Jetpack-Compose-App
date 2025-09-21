@@ -3,15 +3,13 @@ package com.example.allengineeringinone
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.allengineeringinone.ui.ar.ArRoute
 import com.example.allengineeringinone.ui.camera.CameraRoute
 import com.example.allengineeringinone.ui.home.HomeRoute
-import com.example.allengineeringinone.ui.home.HomeViewModel
-import com.example.allengineeringinone.ui.common.Battery.BatteryViewModel
 import com.example.allengineeringinone.ui.map.MapRoute
 import com.example.allengineeringinone.ui.tools.ToolsRoute
 
@@ -43,7 +41,6 @@ fun AllEngineerInOneNavGraph(
             route = AllEngineerInOneDestinations.TOOLS_ROUTE
         ){
             // ToolsScreen
-
             ToolsRoute(
                 openDrawer = openDrawer
             )
@@ -66,6 +63,11 @@ fun AllEngineerInOneNavGraph(
             CameraRoute()
         }
 
+        composable (
+            route = AllEngineerInOneDestinations.AR_ROUTE
+        ){
+            ArRoute()
+        }
     }
 
 }
