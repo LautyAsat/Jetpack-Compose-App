@@ -25,6 +25,7 @@ import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.common.components.DolarWidget
 import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
+import com.example.allengineeringinone.ui.common.components.SkeletonLoader
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 
@@ -50,10 +51,15 @@ fun HomeScreen(
                     .padding(16.dp)
             ) {
 
-                DolarWidget(
-                    uiState.dolarCotization,
-                    Modifier.border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
-                )
+                if(uiState.dolarCotization != null){
+                    DolarWidget(
+                        uiState.dolarCotization,
+                        Modifier.border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
+                    )
+                }
+                else{
+                    SkeletonLoader(modifier = Modifier.border(1.dp, Color.Gray, RoundedCornerShape(16.dp)).height(300.dp))
+                }
 
                 Spacer(Modifier.height(20.dp))
 
