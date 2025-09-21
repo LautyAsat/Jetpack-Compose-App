@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
+import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.map.data.model.MapUIState
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.android.gms.maps.model.LatLng
@@ -101,7 +103,9 @@ fun MapScreen(
                 Spacer(Modifier.height(20.dp))
             }
 
+        },
 
-        }
+        floatingActionButton = { FAB() },
+        floatingActionButtonPosition = FabPosition.EndOverlay
     )
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.common.components.DolarWidget
+import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
@@ -38,6 +40,7 @@ fun HomeScreen(
             // Barra superior de la app.
             TopAppBar(openDrawer)
         },
+
         content = { paddingValues ->
             // Contenido principal de la pantalla, debajo de la barra superior.
             Column(
@@ -74,7 +77,9 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
             }
-        }
+        },
+        floatingActionButton = { FAB() },
+        floatingActionButtonPosition = FabPosition.EndOverlay
     )
 }
 
