@@ -24,21 +24,34 @@ fun ToolsRoute(
     val uiState by toolsViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
+    val permissionsLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+        onResult = { permissionsMap ->
+            toolsViewModel.onPermissionsResult(permissionsMap)
+        }
+    )
+
     // Verificamos si ya tenemos los permisos
     LaunchedEffect(Unit) {
-
-        Log.i("information", "Paso por aca");
-
         val isCameraGranted = ContextCompat.checkSelfPermission(
             context, Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
 
+        val isAudioGranted = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if(!isCameraGranted || !isAudioGranted){
+            permissionsLauncher.launch(
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+            )
+        }
+
         toolsViewModel.onPermissionsResult(mapOf(
-            Manifest.permission.CAMERA to isCameraGranted,
+            Manifest.permission.CAMERA to isCameraGranted, Manifest.permission.RECORD_AUDIO to isAudioGranted
         ))
     }
 
-    // --- LAUNCHER #1: SOLO PARA LA CÁMARA (LINTERNA) ---
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
