@@ -19,7 +19,9 @@ import com.example.allengineeringinone.R
 fun PrimaryButton(
     modifier: Modifier,
     onClick: () -> Unit,
-    text: String
+    text: String,
+    textUnabled: String = "",
+    enabled: Boolean = true
 ){
     Button(
         onClick = {
@@ -27,13 +29,13 @@ fun PrimaryButton(
         },
         modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
-            containerColor = colorResource(R.color.primary),
+            containerColor = if (enabled) colorResource(R.color.primary) else colorResource(R.color.dark_gray),
             contentColor  = Color.White
         ),
         shape = RoundedCornerShape(16.dp)
     ) {
         Text(
-            text = text,
+            text = if (enabled) text else textUnabled,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Black,
             fontSize = 18.sp
