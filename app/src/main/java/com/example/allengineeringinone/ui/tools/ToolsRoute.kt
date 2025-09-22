@@ -58,5 +58,7 @@ fun ToolsRoute(
         openDrawer,
         uiState = uiState,
         onFlashLightClick = { onFlashLightClick() },
+        onStartRecording = { toolsViewModel.onStartRecording() },
+        onStopRecording = { toolsViewModel.onStopRecording() }
     )
 }

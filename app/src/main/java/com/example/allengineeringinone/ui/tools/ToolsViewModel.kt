@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.example.allengineeringinone.ui.tools.data.model.ToolsUIState
+import com.example.allengineeringinone.ui.tools.data.service.AudioRecordingService
 import com.example.allengineeringinone.ui.tools.data.service.FlashlightService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ToolsViewModel @Inject constructor(
     private val flashlightService: FlashlightService,
+    private val audioRecordingService: AudioRecordingService
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(ToolsUIState())
     val uiState = viewModelState.asStateFlow()
@@ -28,6 +30,16 @@ class ToolsViewModel @Inject constructor(
         else flashlightService.turnOn()
 
         viewModelState.update { it.copy(isLighterOn = !it.isLighterOn) }
+    }
+
+    fun onStartRecording(){
+        audioRecordingService.startRecording()
+        viewModelState.update { it.copy(isRecording = true) }
+    }
+
+    fun onStopRecording(){
+        audioRecordingService.stop()
+        viewModelState.update { it.copy(isRecording = false) }
     }
 
     fun onPermissionsResult(permissionsMap: Map<String, Boolean>) {
