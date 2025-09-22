@@ -30,6 +30,7 @@ import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.example.allengineeringinone.ui.tools.data.model.ToolsUIState
 import com.example.allengineeringinone.R
+import com.example.allengineeringinone.ui.common.components.AudioRecorderWidget
 import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
 
@@ -67,56 +68,11 @@ fun ToolsScreen(
 
                 Spacer(Modifier.height(20.dp))
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White, RoundedCornerShape(16.dp))
-                        .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
-                        .padding(16.dp)
-                ){
-                    Column(Modifier.fillMaxWidth()) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            text = "Grabadora de audio",
-                            color = colorResource(id = R.color.dark_gray),
-                            textAlign = TextAlign.Center,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-
-                        Row (Modifier.fillMaxWidth()){
-                            PrimaryButton(modifier = Modifier
-                                .weight(1f),
-                                onClick = { onStartRecording() },
-                                text = "Grabar",
-                                textUnabled = "Grabando...",
-                                enabled = !uiState.isRecording
-                            )
-
-                            Spacer(Modifier.width(8.dp))
-
-                            PrimaryButton(modifier = Modifier
-                                .weight(1f)
-                                ,
-                                onClick = { onStopRecording() },
-                                text = "Parar",
-                                textUnabled = "Parar",
-                                enabled = uiState.isRecording
-                            )
-                        }
-
-                        Spacer(Modifier.height(16.dp))
-
-                        if(uiState.isRecording){
-                            Text("La grabación ha iniciado.", color = colorResource(R.color.red))
-                        }
-                    }
-
-
-                }
+                AudioRecorderWidget(
+                    uiState = uiState,
+                    onStartRecording = onStartRecording,
+                    onStopRecording = onStopRecording
+                )
             }
         },
 
