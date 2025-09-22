@@ -7,7 +7,10 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,15 +25,14 @@ import androidx.compose.ui.unit.dp
 fun SkeletonLoader(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(brush = rememberShimmerBrush())
+            .background(brush = rememberShimmerBrush(), shape = RoundedCornerShape(16.dp))
     )
 }
 
 @Composable
 fun rememberShimmerBrush(
     shimmerColor: Color = Color.LightGray,
-    backgroundColor: Color = Color.Gray.copy(alpha = 0.6f)
+    backgroundColor: Color = Color.LightGray.copy(alpha = 0.6f)
 ): Brush {
     val transition = rememberInfiniteTransition(label = "Shimmer")
     val translateAnimation = transition.animateFloat(

@@ -85,7 +85,5 @@ fun AudioRecorderWidget(
             }
 
         }
-
-
     }
 }

@@ -9,7 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
@@ -49,6 +53,7 @@ fun HomeScreen(
                     .fillMaxSize()
                     .padding(paddingValues)
                     .padding(16.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
 
                 if(uiState.dolarCotization != null){
@@ -58,7 +63,13 @@ fun HomeScreen(
                     )
                 }
                 else{
-                    SkeletonLoader(modifier = Modifier.border(1.dp, Color.Gray, RoundedCornerShape(16.dp)).height(300.dp))
+                    SkeletonLoader(modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(180.dp)
+                            .size(80.dp)
+                            .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
+                    )
                 }
 
                 Spacer(Modifier.height(20.dp))
