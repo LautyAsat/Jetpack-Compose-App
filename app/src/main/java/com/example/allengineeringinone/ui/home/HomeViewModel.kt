@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.home.data.model.HomeEvent
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
+import com.example.allengineeringinone.ui.home.data.model.PricesModel
 import com.example.allengineeringinone.ui.home.data.repository.DolarCotizationRepository
+import com.example.allengineeringinone.ui.home.data.repository.PricesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
@@ -26,6 +28,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val dolarCotizationRepository: DolarCotizationRepository,
+    private val pricesRepository: PricesRepository
 ) : ViewModel(){
 
     private val viewModelState = MutableStateFlow(
@@ -40,6 +43,8 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelState.update { it.copy(isDolarLoading = true, isPricesLoading = true) }
         refreshDolar()
+
+        loadPrices()
     }
 
     fun refreshDolar(){
@@ -68,7 +73,27 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun refreshEngineringFee(){
+    fun loadPrices(){
+        viewModelScope.launch {
+            viewModelState.update { it.copy(isPricesLoading = true) }
 
+            pricesRepository.getPrices()
+                .onSuccess { prices: PricesModel ->
+                    viewModelState.update {
+                        it.copy(
+                            isPricesLoading = false,
+                            prices = prices
+                        )
+                    }
+                }.onFailure { error ->
+                    viewModelState.update {
+                        it.copy(
+                            isPricesLoading = false,
+                            prices = null
+                        )
+                    }
+                }
+        }
     }
+
 }

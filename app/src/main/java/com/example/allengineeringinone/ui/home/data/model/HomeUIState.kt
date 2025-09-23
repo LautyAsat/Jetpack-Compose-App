@@ -4,4 +4,5 @@ data class HomeUIState(
     val isDolarLoading: Boolean = false,
     val isPricesLoading: Boolean = false,
     val dolarCotization: DolarCotization? = null,
+    val prices: PricesModel? = null
 )
