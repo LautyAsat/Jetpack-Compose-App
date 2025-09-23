@@ -40,6 +40,7 @@ import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.common.components.DolarWidget
 import com.example.allengineeringinone.ui.common.components.FAB
+import com.example.allengineeringinone.ui.common.components.FeePrices
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
 import com.example.allengineeringinone.ui.common.components.SkeletonLoader
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
@@ -87,35 +88,7 @@ fun HomeScreen(
                 Spacer(Modifier.height(20.dp))
 
                 if(!uiState.isPricesLoading){
-
-                    Column (
-                        Modifier.fillMaxWidth()
-                            .background(Color.White)
-                            .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
-                            .padding(16.dp)
-                    ){
-
-                        Text(
-                            text = "Precios",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                            ,
-                            color = colorResource(id = R.color.dark_gray),
-                            textAlign = TextAlign.Center,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-
-                        PriceRow(label = "Precio por hora ingeniero", price = "$${uiState.prices?.priceEngineerPerHour}")
-                        PriceRow(label = "Precio por viga", price = "$${uiState.prices?.beamPrice}")
-                        PriceRow(label = "Precio Kg de arena", price = "$${uiState.prices?.sandPricePerKilogram}")
-                        PriceRow(label = "Precio Kg de porlán", price = "$${uiState.prices?.porlanPricePerKilogram}")
-                        PriceRow(label = "Precio por unidad de ladrillo", price = "$${uiState.prices?.bricksPrice}")
-                    }
-
-
+                    FeePrices(uiState.prices)
                 }
                 else{
                     SkeletonLoader(modifier =
@@ -145,40 +118,3 @@ fun HomeScreen(
     )
 }
 
-
-@Composable
-fun RowScope.TableCell(
-    text: String,
-    weight: Float,
-    important: Boolean = false
-) {
-    Text(
-        text = text,
-        modifier = Modifier
-            .weight(weight)
-            .padding(12.dp)
-        ,
-        fontWeight = if (important) FontWeight.Medium else FontWeight.Normal,
-        textAlign = if (important) TextAlign.Center else TextAlign.Start
-    )
-}
-
-
-/**
- * Un Composable que renderiza una fila completa para la tabla de precios.
- * @param label El texto descriptivo del precio (ej: "Precio por viga").
- * @param price El valor del precio a mostrar.
- */
-@Composable
-fun PriceRow(label: String, price: String) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-    ) {
-        TableCell(text = label, weight = 0.6f)
-        TableCell(text = price, weight = 0.4f, important = true)
-    }
-    Spacer(Modifier.height(8.dp))
-}
