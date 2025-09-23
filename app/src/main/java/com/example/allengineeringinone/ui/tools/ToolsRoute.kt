@@ -41,29 +41,25 @@ fun ToolsRoute(
             context, Manifest.permission.RECORD_AUDIO
         ) == PackageManager.PERMISSION_GRANTED
 
-        if(!isCameraGranted || !isAudioGranted){
-            permissionsLauncher.launch(
-                arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-            )
-        }
-
         toolsViewModel.onPermissionsResult(mapOf(
             Manifest.permission.CAMERA to isCameraGranted, Manifest.permission.RECORD_AUDIO to isAudioGranted
         ))
     }
 
-    val cameraPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            toolsViewModel.onPermissionsResult(mapOf(Manifest.permission.CAMERA to isGranted))
-        }
-    )
 
     fun onFlashLightClick(){
         if(uiState.permissionCameraStatus == PermissionStatus.GRANTED){
             toolsViewModel.onFlashToggle()
         } else {
-            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            permissionsLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+        }
+    }
+
+    fun onRecordClick(){
+        if(uiState.permissionAudioStatus == PermissionStatus.GRANTED){
+            toolsViewModel.onStartRecording()
+        } else {
+            permissionsLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
         }
     }
 
@@ -71,7 +67,7 @@ fun ToolsRoute(
         openDrawer,
         uiState = uiState,
         onFlashLightClick = { onFlashLightClick() },
-        onStartRecording = { toolsViewModel.onStartRecording() },
+        onStartRecording = { onRecordClick() },
         onStopRecording = { toolsViewModel.onStopRecording() }
     )
 }

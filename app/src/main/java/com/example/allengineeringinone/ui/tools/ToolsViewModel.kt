@@ -43,12 +43,15 @@ class ToolsViewModel @Inject constructor(
     }
 
     fun onPermissionsResult(permissionsMap: Map<String, Boolean>) {
-
         val isCameraGranted = permissionsMap[Manifest.permission.CAMERA]
+            ?: (viewModelState.value.permissionCameraStatus == PermissionStatus.GRANTED)
+
+        val isAudioGranted = permissionsMap[Manifest.permission.RECORD_AUDIO]
             ?: (viewModelState.value.permissionCameraStatus == PermissionStatus.GRANTED)
 
         viewModelState.update { it.copy(
             permissionCameraStatus = if (isCameraGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED,
+            permissionAudioStatus =  if (isAudioGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED
         )}
     }
 }
