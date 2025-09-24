@@ -1,5 +1,6 @@
 package com.example.allengineeringinone.ui.common.components
 
+import android.util.Log
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Textsms
@@ -10,10 +11,15 @@ import androidx.compose.ui.res.colorResource
 import com.example.allengineeringinone.R
 
 @Composable
-fun FAB(){
+fun FAB(
+    onClick: () -> Unit
+){
 
     FloatingActionButton(
-        onClick = {},
+        onClick = {
+            Log.i("FAB_DEBUG", "Abriendo")
+            onClick()
+        },
         containerColor = colorResource(R.color.black),
         shape = CircleShape
     ) {

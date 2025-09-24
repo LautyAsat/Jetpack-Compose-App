@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.maps.android.compose.rememberCameraPositionState
 
@@ -17,7 +18,11 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun MapRoute(
     openDrawer: () -> Unit,
-    mapViewModel: MapViewModel = hiltViewModel()
+    mapViewModel: MapViewModel = hiltViewModel(),
+    chatUIState: ChatUIState,
+    onToggleChat: () -> Unit,
+    onMessageChatSent: () -> Unit,
+    onTextFieldChanged: (String) -> Unit
 ){
     val uiState by mapViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -51,6 +56,10 @@ fun MapRoute(
         uiState = uiState,
         cameraPositionState = cameraPositionState,
         openDrawer = openDrawer,
-        onAddMarkerClick = { mapViewModel.addMarker() }
+        onAddMarkerClick = { mapViewModel.addMarker() },
+        chatUIState = chatUIState,
+        onToggleChat = onToggleChat,
+        onMessageChatSent = onMessageChatSent,
+        onTextFieldChanged = onTextFieldChanged
     )
 }

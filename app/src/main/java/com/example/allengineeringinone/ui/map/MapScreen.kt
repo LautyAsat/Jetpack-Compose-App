@@ -24,6 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allengineeringinone.R
+import com.example.allengineeringinone.ui.common.Chat.ChatWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.map.data.model.MapUIState
@@ -40,6 +42,10 @@ fun MapScreen(
     cameraPositionState: CameraPositionState,
     openDrawer: () -> Unit,
     onAddMarkerClick: () -> Unit,
+    chatUIState: ChatUIState,
+    onToggleChat: () -> Unit,
+    onMessageChatSent: () -> Unit,
+    onTextFieldChanged: (String) -> Unit
 ){
 
     Scaffold(
@@ -101,11 +107,19 @@ fun MapScreen(
                 }
 
                 Spacer(Modifier.height(20.dp))
+
+                ChatWidget(
+                    uiState = chatUIState,
+                    paddingValues = paddingValues,
+                    onToggleChat = onToggleChat,
+                    onSendMessage = onMessageChatSent,
+                    onTextFieldChanged = onTextFieldChanged
+                )
             }
 
         },
 
-        floatingActionButton = { FAB() },
+        floatingActionButton = { FAB { onToggleChat() } },
         floatingActionButtonPosition = FabPosition.EndOverlay
     )
 }

@@ -1,6 +1,7 @@
 package com.example.allengineeringinone.ui.tools
 
 import android.Manifest
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
@@ -62,11 +63,22 @@ class ToolsViewModel @Inject constructor(
 
     fun onPermissionsResult(permissionsMap: Map<String, Boolean>) {
 
-        val isCameraGranted = permissionsMap[Manifest.permission.CAMERA]
-            ?: (viewModelState.value.permissionCameraStatus == PermissionStatus.GRANTED)
+        val newCameraStatus = if (permissionsMap.containsKey(Manifest.permission.CAMERA)) {
+            if (permissionsMap[Manifest.permission.CAMERA] == true) PermissionStatus.GRANTED else PermissionStatus.DENIED
+        } else {
+            viewModelState.value.permissionCameraStatus
+        }
+
+        val newAudioStatus = if (permissionsMap.containsKey(Manifest.permission.RECORD_AUDIO)) {
+            if (permissionsMap[Manifest.permission.RECORD_AUDIO] == true) PermissionStatus.GRANTED else PermissionStatus.DENIED
+        } else {
+            viewModelState.value.permissionAudioStatus
+        }
+
 
         viewModelState.update { it.copy(
-            permissionCameraStatus = if (isCameraGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED,
+            permissionCameraStatus = newCameraStatus,
+            permissionAudioStatus =  newAudioStatus
         )}
     }
 

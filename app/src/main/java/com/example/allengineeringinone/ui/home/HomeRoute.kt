@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.example.allengineeringinone.ui.home.data.model.HomeEvent
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
@@ -19,7 +20,11 @@ import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    openDrawer: () -> Unit
+    openDrawer: () -> Unit,
+    chatUIState: ChatUIState,
+    onToggleChat: () -> Unit,
+    onMessageChatSent: () -> Unit,
+    onTextFieldChanged: (String) -> Unit
 ){
     val uiState: HomeUIState by homeViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -37,7 +42,11 @@ fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         callEngineeringCousil = homeViewModel::callEngineeringCousil,
-        openDrawer = openDrawer
+        openDrawer = openDrawer,
+        chatUIState = chatUIState,
+        onToggleChat = onToggleChat,
+        onMessageChatSent = onMessageChatSent,
+        onTextFieldChanged = onTextFieldChanged
     )
 }
 

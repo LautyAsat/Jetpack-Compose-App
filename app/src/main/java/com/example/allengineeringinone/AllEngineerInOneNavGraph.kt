@@ -2,13 +2,17 @@ package com.example.allengineeringinone
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.allengineeringinone.ui.ar.ArRoute
 import com.example.allengineeringinone.ui.camera.CameraRoute
+import com.example.allengineeringinone.ui.common.Chat.ChatViewModel
 import com.example.allengineeringinone.ui.home.HomeRoute
 import com.example.allengineeringinone.ui.map.MapRoute
 import com.example.allengineeringinone.ui.tools.ToolsRoute
@@ -22,6 +26,9 @@ fun AllEngineerInOneNavGraph(
     startDestination: String = AllEngineerInOneDestinations.HOME_ROUTE,
 ){
 
+    val chatViewModel: ChatViewModel = hiltViewModel()
+    val chatUIState by chatViewModel.uiState.collectAsStateWithLifecycle()
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -33,7 +40,11 @@ fun AllEngineerInOneNavGraph(
             route = AllEngineerInOneDestinations.HOME_ROUTE
         ){
             HomeRoute(
-                openDrawer = openDrawer
+                openDrawer = openDrawer,
+                chatUIState = chatUIState,
+                onToggleChat = chatViewModel::toggleChat,
+                onMessageChatSent = chatViewModel::onSendMessage,
+                onTextFieldChanged = chatViewModel::onTextFieldChanged
             )
         }
 
@@ -42,7 +53,11 @@ fun AllEngineerInOneNavGraph(
         ){
             // ToolsScreen
             ToolsRoute(
-                openDrawer = openDrawer
+                openDrawer = openDrawer,
+                chatUIState = chatUIState,
+                onToggleChat = chatViewModel::toggleChat,
+                onMessageChatSent = chatViewModel::onSendMessage,
+                onTextFieldChanged = chatViewModel::onTextFieldChanged
             )
         }
 
@@ -52,7 +67,12 @@ fun AllEngineerInOneNavGraph(
             // MapScreen
 
             MapRoute(
-                openDrawer = openDrawer)
+                openDrawer = openDrawer,
+                chatUIState = chatUIState,
+                onToggleChat = chatViewModel::toggleChat,
+                onMessageChatSent = chatViewModel::onSendMessage,
+                onTextFieldChanged = chatViewModel::onTextFieldChanged
+            )
         }
 
         composable (

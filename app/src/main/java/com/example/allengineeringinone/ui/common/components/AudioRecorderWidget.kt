@@ -52,16 +52,16 @@ fun AudioRecorderWidget(
 
             Spacer(Modifier.height(16.dp))
 
-            if(uiState.permissionAudioStatus == PermissionStatus.GRANTED){
-                Row (Modifier.fillMaxWidth()){
-                    PrimaryButton(modifier = Modifier
-                        .weight(1f),
-                        onClick = { onStartRecording() },
-                        text = "Grabar",
-                        textUnabled = "Grabando...",
-                        enabled = !uiState.isRecording
-                    )
+            Row (Modifier.fillMaxWidth()){
+                PrimaryButton(modifier = Modifier
+                    .weight(1f),
+                    onClick = { onStartRecording() },
+                    text = "Grabar",
+                    textUnabled = if(uiState.permissionAudioStatus == PermissionStatus.GRANTED) "Grabando..." else "Permiso de audio denegado",
+                    enabled =  if(uiState.permissionAudioStatus == PermissionStatus.GRANTED) !uiState.isRecording else false
+                )
 
+                if(uiState.permissionAudioStatus == PermissionStatus.GRANTED){
                     Spacer(Modifier.width(8.dp))
 
                     PrimaryButton(modifier = Modifier
@@ -73,17 +73,17 @@ fun AudioRecorderWidget(
                         enabled = uiState.isRecording
                     )
                 }
-
-                Spacer(Modifier.height(16.dp))
-
-                if(uiState.isRecording){
-                    Text("La grabación ha iniciado.", color = colorResource(R.color.red))
-                }
             }
-            else{
+
+            Spacer(Modifier.height(16.dp))
+
+            if(uiState.isRecording){
+                Text("La grabación ha iniciado.", color = colorResource(R.color.red), textAlign = TextAlign.Center,  modifier = Modifier.fillMaxWidth())
+            }
+
+            if(uiState.permissionAudioStatus != PermissionStatus.GRANTED){
                 Text("Permiso de audio denegado", color = colorResource(R.color.red), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
             }
-
         }
     }
 }

@@ -13,13 +13,18 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ToolsRoute(
     openDrawer: () -> Unit,
-    toolsViewModel: ToolsViewModel = hiltViewModel()
+    toolsViewModel: ToolsViewModel = hiltViewModel(),
+    chatUIState: ChatUIState,
+    onToggleChat: () -> Unit,
+    onMessageChatSent: () -> Unit,
+    onTextFieldChanged: (String) -> Unit
 ){
     val uiState by toolsViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -41,29 +46,25 @@ fun ToolsRoute(
             context, Manifest.permission.RECORD_AUDIO
         ) == PackageManager.PERMISSION_GRANTED
 
-        if(!isCameraGranted || !isAudioGranted){
-            permissionsLauncher.launch(
-                arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-            )
-        }
-
         toolsViewModel.onPermissionsResult(mapOf(
             Manifest.permission.CAMERA to isCameraGranted, Manifest.permission.RECORD_AUDIO to isAudioGranted
         ))
     }
 
-    val cameraPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            toolsViewModel.onPermissionsResult(mapOf(Manifest.permission.CAMERA to isGranted))
-        }
-    )
 
     fun onFlashLightClick(){
         if(uiState.permissionCameraStatus == PermissionStatus.GRANTED){
             toolsViewModel.onFlashToggle()
         } else {
-            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            permissionsLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+        }
+    }
+
+    fun onRecordClick(){
+        if(uiState.permissionAudioStatus == PermissionStatus.GRANTED){
+            toolsViewModel.onStartRecording()
+        } else {
+            permissionsLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
         }
     }
 
@@ -71,7 +72,11 @@ fun ToolsRoute(
         openDrawer,
         uiState = uiState,
         onFlashLightClick = { onFlashLightClick() },
-        onStartRecording = { toolsViewModel.onStartRecording() },
-        onStopRecording = { toolsViewModel.onStopRecording() }
+        onStartRecording = { onRecordClick() },
+        onStopRecording = { toolsViewModel.onStopRecording() },
+        chatUIState = chatUIState,
+        onToggleChat = onToggleChat,
+        onMessageChatSent = onMessageChatSent,
+        onTextFieldChanged = onTextFieldChanged
     )
 }
