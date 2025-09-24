@@ -82,6 +82,7 @@ dependencies {
     // firebase
     implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-database")
     ksp("com.google.dagger:hilt-compiler:2.57.1")
 
 

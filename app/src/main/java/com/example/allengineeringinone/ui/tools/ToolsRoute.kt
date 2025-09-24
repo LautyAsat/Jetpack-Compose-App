@@ -13,13 +13,18 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ToolsRoute(
     openDrawer: () -> Unit,
-    toolsViewModel: ToolsViewModel = hiltViewModel()
+    toolsViewModel: ToolsViewModel = hiltViewModel(),
+    chatUIState: ChatUIState,
+    onToggleChat: () -> Unit,
+    onMessageChatSent: () -> Unit,
+    onTextFieldChanged: (String) -> Unit
 ){
     val uiState by toolsViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -68,6 +73,10 @@ fun ToolsRoute(
         uiState = uiState,
         onFlashLightClick = { onFlashLightClick() },
         onStartRecording = { onRecordClick() },
-        onStopRecording = { toolsViewModel.onStopRecording() }
+        onStopRecording = { toolsViewModel.onStopRecording() },
+        chatUIState = chatUIState,
+        onToggleChat = onToggleChat,
+        onMessageChatSent = onMessageChatSent,
+        onTextFieldChanged = onTextFieldChanged
     )
 }
