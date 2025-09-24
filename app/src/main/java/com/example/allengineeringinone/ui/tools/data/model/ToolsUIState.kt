@@ -7,4 +7,6 @@ data class ToolsUIState(
     val permissionCameraStatus: PermissionStatus = PermissionStatus.UNKNOWN,
     val permissionAudioStatus: PermissionStatus = PermissionStatus.UNKNOWN,
     val isRecording: Boolean = false,
+    val inclination: Float = 0f,
 )
+

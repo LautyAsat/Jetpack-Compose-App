@@ -73,6 +73,15 @@ fun ToolsScreen(
                     onStartRecording = onStartRecording,
                     onStopRecording = onStopRecording
                 )
+
+                Text(modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(9,9,9,0))
+                    ,
+
+                    text = "Grados:  ${uiState.inclination}"
+                )
+
             }
         },
 
