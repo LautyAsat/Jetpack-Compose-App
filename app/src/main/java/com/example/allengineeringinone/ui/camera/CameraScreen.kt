@@ -136,15 +136,16 @@ fun CameraScreen(
                         {
                             Icon(Icons.Filled.FlipCameraAndroid, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(20.dp))
                         }
+
+                        IconButton(
+                            onClick = onPhotoMode,
+                            modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.PHOTO) Color.Red else Color.Black, shape = CircleShape),
+                        )
+                        {
+                            Icon(Icons.Filled.CameraAlt, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(30.dp))
+                        }
                     }
 
-                    IconButton(
-                        onClick = onPhotoMode,
-                        modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.PHOTO) Color.Red else Color.Black, shape = CircleShape),
-                    )
-                    {
-                        Icon(Icons.Filled.CameraAlt, contentDescription = "Photo", tint = Color.White, modifier = Modifier.size(30.dp))
-                    }
                     IconButton(
                         onClick = onVideoMode,
                         modifier = Modifier.padding(16.dp).background(if (uiState.cameraAction == CameraAction.VIDEO) Color.Red else Color.Black, shape = CircleShape),
