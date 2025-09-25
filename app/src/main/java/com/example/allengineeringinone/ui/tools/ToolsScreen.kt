@@ -59,6 +59,21 @@ import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
 import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 
+
+/**
+* información: ToolsScreen es la vista stateless de la pantalla de herramientas.
+*
+* @param openDrawer: abre el drawer
+* @param uiState: estado de la pantalla
+* @param onFlashLightClick: click en el boton de la flash (Se encarga de ver si hay permisos o no y las funciones correspondientes)
+* @param onStartRecording: click en el boton de la grabacion (Se encarga de ver si hay permisos o no y las funciones correspondientes)
+* @param onStopRecording: detiene la grabación
+* @param chatUIState: estado del chat
+* @param onToggleChat: abre y cierra el chat
+* @param onMessageChatSent: envía el mensaje del chat
+* @param onTextFieldChanged: cambia el texto del textfield
+* */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolsScreen(

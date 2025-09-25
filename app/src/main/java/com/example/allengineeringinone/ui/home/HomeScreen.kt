@@ -48,6 +48,18 @@ import com.example.allengineeringinone.ui.common.components.SkeletonLoader
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 
+
+/**
+ * Información: HomeScreen es la vista stateless de la pantalla de inicio.
+ *
+ * @param uiState: estado de la pantalla
+ * @param openDrawer: abre el drawer
+ * @param callEngineeringCousil: llama al consejo
+ * @param chatUIState: estado del chat
+ * @param onToggleChat: abre y cierra el chat
+ * @param onMessageChatSent: envía el mensaje del chat
+ * @param onTextFieldChanged: cambia el texto tel textfield
+ * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(

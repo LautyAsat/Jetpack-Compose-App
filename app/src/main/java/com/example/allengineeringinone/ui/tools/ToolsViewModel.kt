@@ -13,6 +13,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
+/**
+* @inject flashlightService: Servicio especializado en el manejo del flash
+* @inject audioRecordingService: Servicio especializado en el manejo de la grabación de audio
+* */
 @HiltViewModel
 class ToolsViewModel @Inject constructor(
     private val flashlightService: FlashlightService,

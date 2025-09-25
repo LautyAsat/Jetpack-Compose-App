@@ -12,11 +12,15 @@ import com.example.allengineeringinone.ui.home.data.model.HomeEvent
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 /**
- * Renderiza la homeRoute
+ * Información: HomeRoute es el punto de entrada stateful de la pantalla de inicio.
  *
+ * @inject homeViewModel: Inyección del viewModel del home
  * @param openDrawer (evento) solicita abrir el open drawer
+ * @param chatUIState: estado del chat
+ * @param onToggleChat: abre y cierra el chat
+ * @param onMessageChatSent (evento) envía el mensaje del chat
+ * @param onTextFieldChanged (evento) cambia el texto tel textfield
  */
-
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel = hiltViewModel(),

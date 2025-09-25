@@ -16,6 +16,18 @@ import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
 import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+
+
+/**
+* Información: ToolsRoute es el punto de entrada stateful de la pantalla de herramientas.
+*
+* @param openDrawer: abre el drawer
+* @inject toolsViewModel: Inyección del viewModel del tools
+* @param chatUIState: estado del chat
+* @param onToggleChat: abre y cierra el chat
+* @param onMessageChatSent: envía el mensaje del chat
+* @param onTextFieldChanged: cambia el texto tel textfield
+* */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ToolsRoute(
@@ -50,7 +62,6 @@ fun ToolsRoute(
             Manifest.permission.CAMERA to isCameraGranted, Manifest.permission.RECORD_AUDIO to isAudioGranted
         ))
     }
-
 
     fun onFlashLightClick(){
         if(uiState.permissionCameraStatus == PermissionStatus.GRANTED){
