@@ -1,5 +1,6 @@
 package com.example.allengineeringinone.ui.tools
 
+import android.graphics.Paint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -43,7 +44,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
@@ -58,6 +62,8 @@ import com.example.allengineeringinone.ui.common.components.AudioRecorderWidget
 import com.example.allengineeringinone.ui.common.components.FAB
 import com.example.allengineeringinone.ui.common.components.PrimaryButton
 import com.google.android.material.bottomsheet.BottomSheetDragHandleView
+import kotlin.math.absoluteValue
+import kotlin.math.floor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,13 +112,29 @@ fun ToolsScreen(
                     onStopRecording = onStopRecording
                 )
 
-                Text(modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(9,9,9,0))
-                    ,
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 20.dp)
+                        , horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Text(color = Color(0xFF1B5E20),
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Normal,
+                        text = "Nivel"
+                    )
 
-                    text = "Grados:  ${uiState.inclination}"
-                )
+                    Text(
+                        modifier = Modifier
+                            .weight(1f),
+                        color = Color(0xFF4CAF50),
+                        fontSize = 150.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        text = "${uiState.inclination.toInt()}"
+                    )
+                }
 
             }
 
