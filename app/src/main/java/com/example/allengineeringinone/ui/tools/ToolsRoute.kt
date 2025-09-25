@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
 import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
+import com.example.allengineeringinone.ui.common.Chat.data.model.LocalChatActions
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
@@ -24,22 +25,18 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 * @param openDrawer: abre el drawer
 * @inject toolsViewModel: Inyección del viewModel del tools
 * @param chatUIState: estado del chat
-* @param onToggleChat: abre y cierra el chat
-* @param onMessageChatSent: envía el mensaje del chat
-* @param onTextFieldChanged: cambia el texto tel textfield
 * */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ToolsRoute(
     openDrawer: () -> Unit,
     toolsViewModel: ToolsViewModel = hiltViewModel(),
-    chatUIState: ChatUIState,
-    onToggleChat: () -> Unit,
-    onMessageChatSent: () -> Unit,
-    onTextFieldChanged: (String) -> Unit
+    chatUIState: ChatUIState
 ){
     val uiState by toolsViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    val chatActions = LocalChatActions.current
 
     val permissionsLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
@@ -86,8 +83,6 @@ fun ToolsRoute(
         onStartRecording = { onRecordClick() },
         onStopRecording = { toolsViewModel.onStopRecording() },
         chatUIState = chatUIState,
-        onToggleChat = onToggleChat,
-        onMessageChatSent = onMessageChatSent,
-        onTextFieldChanged = onTextFieldChanged
+        chatActions = chatActions
     )
 }

@@ -51,7 +51,9 @@ import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.example.allengineeringinone.ui.tools.data.model.ToolsUIState
 import com.example.allengineeringinone.ui.common.Chat.ChatViewModel
 import com.example.allengineeringinone.ui.common.Chat.ChatWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatActions
 import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
+import com.example.allengineeringinone.ui.common.Chat.data.model.LocalChatActions
 import com.example.allengineeringinone.ui.common.Chat.data.model.Message
 import com.example.allengineeringinone.ui.common.Chat.data.model.Sender
 import com.example.allengineeringinone.ui.common.components.AudioRecorderWidget
@@ -69,9 +71,6 @@ import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 * @param onStartRecording: click en el boton de la grabacion (Se encarga de ver si hay permisos o no y las funciones correspondientes)
 * @param onStopRecording: detiene la grabación
 * @param chatUIState: estado del chat
-* @param onToggleChat: abre y cierra el chat
-* @param onMessageChatSent: envía el mensaje del chat
-* @param onTextFieldChanged: cambia el texto del textfield
 * */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,10 +82,9 @@ fun ToolsScreen(
     onStartRecording: () -> Unit,
     onStopRecording: () -> Unit,
     chatUIState: ChatUIState,
-    onToggleChat: () -> Unit,
-    onMessageChatSent: () -> Unit,
-    onTextFieldChanged: (String) -> Unit
+    chatActions: ChatActions
 ){
+
     Scaffold(
         topBar = {
             TopAppBar(openDrawer)
@@ -126,13 +124,13 @@ fun ToolsScreen(
             ChatWidget(
                 uiState = chatUIState,
                 paddingValues = paddingValues,
-                onToggleChat = onToggleChat,
-                onSendMessage = onMessageChatSent,
-                onTextFieldChanged = onTextFieldChanged
+                onToggleChat = chatActions.onToggleChat,
+                onSendMessage = chatActions.onMessageChatSent,
+                onTextFieldChanged = chatActions.onTextFieldChanged
             )
         },
 
-        floatingActionButton = { FAB { onToggleChat() } },
+        floatingActionButton = { FAB { chatActions.onToggleChat() } },
         floatingActionButtonPosition = FabPosition.EndOverlay
     )
 }
