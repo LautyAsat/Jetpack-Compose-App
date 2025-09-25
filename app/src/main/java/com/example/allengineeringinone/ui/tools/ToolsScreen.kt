@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,12 +45,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.map.data.model.PermissionStatus
 import com.example.allengineeringinone.ui.tools.data.model.ToolsUIState
@@ -129,25 +133,29 @@ fun ToolsScreen(
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(top = 20.dp)
-                        , horizontalAlignment = Alignment.CenterHorizontally
+                        .background(Color.White, RoundedCornerShape(16.dp))
+                        .border(1.dp, Color.Black, RoundedCornerShape(16.dp))
+                        .padding(top = 16.dp)
+                    ,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Text(color = Color(0xFF1B5E20),
-                        fontSize = 25.sp,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Normal,
+                    Text(color = Color.DarkGray,
+                        textAlign = TextAlign.Center,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
                         text = "Nivel"
                     )
 
                     Text(
-                        modifier = Modifier
-                            .weight(1f),
-                        color = Color(0xFF4CAF50),
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Color.DarkGray,
                         fontSize = 150.sp,
                         fontFamily = FontFamily.Monospace,
                         fontWeight = FontWeight.Bold,
-                        text = "${uiState.inclination.absoluteValue.toInt()}"
+                        text = "${uiState.inclination.absoluteValue.toInt()}",
+                        textAlign = TextAlign.Center,
                     )
                 }
 
