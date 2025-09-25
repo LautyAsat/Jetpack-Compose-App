@@ -145,7 +145,7 @@ fun ToolsScreen(
                         fontSize = 150.sp,
                         fontFamily = FontFamily.Monospace,
                         fontWeight = FontWeight.Bold,
-                        text = "${uiState.inclination.toInt()}"
+                        text = "${uiState.inclination.absoluteValue.toInt()}"
                     )
                 }
 
