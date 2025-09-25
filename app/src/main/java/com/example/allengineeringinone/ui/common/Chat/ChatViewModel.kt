@@ -22,6 +22,17 @@ class ChatViewModel @Inject constructor(
     private val viewModelState = MutableStateFlow(ChatUIState())
     val uiState = viewModelState.asStateFlow()
 
+
+    init {
+        viewModelScope.launch {
+            chatRepository.observeMessages().collect { newMessage ->
+                if(!uiState.value.isBotResponding){
+                    addMessageToChat(newMessage, Sender.BOT)
+                }
+            }
+        }
+    }
+
     fun toggleChat(){
         viewModelState.update { it.copy( isChatOpen = !it.isChatOpen) }
     }
@@ -37,25 +48,30 @@ class ChatViewModel @Inject constructor(
 
         Log.i("DEBUG", userMessageText)
 
-
         if(userMessageText.isBlank()) return
 
         addMessageToChat(userMessageText, Sender.USER)
 
-        viewModelScope.launch {
-            chatRepository.getResponsesFor(userMessageText)
-                .onSuccess { response ->
-                    val botText = response ?: ""
 
-                    if(response?.isNotBlank() == true){
-                        addMessageToChat(botText, Sender.BOT)
+        if(uiState.value.isBotResponding){
+            viewModelScope.launch {
+                chatRepository.getResponsesFor(userMessageText)
+                    .onSuccess { response ->
+                        val botText = response ?: ""
+
+                        if(response?.isNotBlank() == true){
+                            addMessageToChat(botText, Sender.BOT)
+                        }
+                        else{
+                            addMessageToChat("Perdón por no poder ayudarte, se te asignara un operador en los proximos minutos.", Sender.BOT)
+                            viewModelState.update { it.copy( isBotResponding = false) }
+                        }
                     }
-                }
-                .onFailure {
-                    Log.e("CHAT_DEBUG", "Error en el chat", it)
-                }
+                    .onFailure {
+                        Log.e("CHAT_DEBUG", "Error en el chat", it)
+                    }
+            }
         }
-
     }
 
     private fun addMessageToChat(text: String, sender: Sender){

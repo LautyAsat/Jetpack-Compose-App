@@ -17,6 +17,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.atan2
 
+/**
+* @inject flashlightService: Servicio especializado en el manejo del flash
+* @inject audioRecordingService: Servicio especializado en el manejo de la grabación de audio
+* */
 @HiltViewModel
 class ToolsViewModel @Inject constructor(
     private val flashlightService: FlashlightService,

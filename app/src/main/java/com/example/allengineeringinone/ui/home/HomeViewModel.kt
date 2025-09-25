@@ -24,6 +24,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+/**
+ * @inject context: Contexto de la aplicación
+ * @inject dolarCotizationRepository: Repositorio de cotización del dólar
+ * @inject pricesRepository: Repositorio de precios
+ * */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -42,8 +47,9 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelState.update { it.copy(isDolarLoading = true, isPricesLoading = true) }
-        refreshDolar()
 
+        // Al iniciar el viewModel, se cargan los datos de la cotización del dólar y los precios.
+        refreshDolar()
         loadPrices()
     }
 

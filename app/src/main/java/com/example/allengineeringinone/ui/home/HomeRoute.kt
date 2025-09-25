@@ -8,26 +8,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.allengineeringinone.ui.common.Battery.BatteryWidget
 import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
+import com.example.allengineeringinone.ui.common.Chat.data.model.LocalChatActions
 import com.example.allengineeringinone.ui.home.data.model.HomeEvent
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 /**
- * Renderiza la homeRoute
+ * Información: HomeRoute es el punto de entrada stateful de la pantalla de inicio.
  *
+ * @inject homeViewModel: Inyección del viewModel del home
  * @param openDrawer (evento) solicita abrir el open drawer
+ * @param chatUIState: estado del chat
  */
-
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel = hiltViewModel(),
     openDrawer: () -> Unit,
     chatUIState: ChatUIState,
-    onToggleChat: () -> Unit,
-    onMessageChatSent: () -> Unit,
-    onTextFieldChanged: (String) -> Unit
 ){
     val uiState: HomeUIState by homeViewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val chatActions = LocalChatActions.current
+
 
     LaunchedEffect(Unit) {
         homeViewModel.events.collect { event ->
@@ -44,9 +45,7 @@ fun HomeRoute(
         callEngineeringCousil = homeViewModel::callEngineeringCousil,
         openDrawer = openDrawer,
         chatUIState = chatUIState,
-        onToggleChat = onToggleChat,
-        onMessageChatSent = onMessageChatSent,
-        onTextFieldChanged = onTextFieldChanged
+        chatActions = chatActions
     )
 }
 

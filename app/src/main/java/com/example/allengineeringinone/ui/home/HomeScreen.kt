@@ -38,7 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allengineeringinone.R
 import com.example.allengineeringinone.ui.common.Chat.ChatWidget
+import com.example.allengineeringinone.ui.common.Chat.data.model.ChatActions
 import com.example.allengineeringinone.ui.common.Chat.data.model.ChatUIState
+import com.example.allengineeringinone.ui.common.Chat.data.model.LocalChatActions
 import com.example.allengineeringinone.ui.common.TopAppBar.TopAppBar
 import com.example.allengineeringinone.ui.common.components.DolarWidget
 import com.example.allengineeringinone.ui.common.components.FAB
@@ -48,6 +50,15 @@ import com.example.allengineeringinone.ui.common.components.SkeletonLoader
 import com.example.allengineeringinone.ui.home.data.model.HomeUIState
 
 
+
+/**
+ * Información: HomeScreen es la vista stateless de la pantalla de inicio.
+ *
+ * @param uiState: estado de la pantalla
+ * @param openDrawer: abre el drawer
+ * @param callEngineeringCousil: llama al consejo
+ * @param chatUIState: estado del chat
+ * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -55,10 +66,9 @@ fun HomeScreen(
     openDrawer: () -> Unit,
     callEngineeringCousil: () -> Unit,
     chatUIState: ChatUIState,
-    onToggleChat: () -> Unit,
-    onMessageChatSent: () -> Unit,
-    onTextFieldChanged: (String) -> Unit
+    chatActions: ChatActions
 ){
+
     Scaffold(
         topBar = {
             // Barra superior de la app.
@@ -120,13 +130,13 @@ fun HomeScreen(
                 ChatWidget(
                     uiState = chatUIState,
                     paddingValues = paddingValues,
-                    onToggleChat = onToggleChat,
-                    onSendMessage = onMessageChatSent,
-                    onTextFieldChanged = onTextFieldChanged
+                    onToggleChat = chatActions.onToggleChat,
+                    onSendMessage = chatActions.onMessageChatSent,
+                    onTextFieldChanged = chatActions.onTextFieldChanged
                 )
             }
         },
-        floatingActionButton = { FAB { onToggleChat() } },
+        floatingActionButton = { FAB { chatActions.onToggleChat() } },
         floatingActionButtonPosition = FabPosition.EndOverlay
     )
 }
