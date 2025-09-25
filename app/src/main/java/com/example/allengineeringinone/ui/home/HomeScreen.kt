@@ -58,6 +58,7 @@ import com.example.allengineeringinone.ui.home.data.model.HomeUIState
  * @param openDrawer: abre el drawer
  * @param callEngineeringCousil: llama al consejo
  * @param chatUIState: estado del chat
+ * @param chatActions: acciones del chat
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

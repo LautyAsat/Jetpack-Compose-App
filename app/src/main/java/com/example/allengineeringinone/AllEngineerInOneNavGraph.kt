@@ -21,6 +21,15 @@ import com.example.allengineeringinone.ui.home.HomeRoute
 import com.example.allengineeringinone.ui.map.MapRoute
 import com.example.allengineeringinone.ui.tools.ToolsRoute
 
+/**
+ * Información: AllEngineerInOneNavGraph representa la entrada de la app a cada una de las pantallas.
+ * Se definen los composables a renderizar dependiendo de la ruta.
+ *
+ * @param modifier: modificador
+ * @param navController: controlador de navegación
+ * @param openDrawer: abre el drawer
+ * @param startDestination: ruta de por defecto de inicio
+ * */
 @ExperimentalMaterial3Api
 @Composable
 fun AllEngineerInOneNavGraph(
@@ -44,8 +53,6 @@ fun AllEngineerInOneNavGraph(
             startDestination = startDestination,
             modifier = modifier
         ){
-
-
             composable (
                 route = AllEngineerInOneDestinations.HOME_ROUTE
             ){
@@ -58,7 +65,6 @@ fun AllEngineerInOneNavGraph(
             composable (
                 route = AllEngineerInOneDestinations.TOOLS_ROUTE
             ){
-                // ToolsScreen
                 ToolsRoute(
                     openDrawer = openDrawer,
                     chatUIState = chatUIState
@@ -68,8 +74,6 @@ fun AllEngineerInOneNavGraph(
             composable (
                 route = AllEngineerInOneDestinations.MAPS_ROUTE
             ){
-                // MapScreen
-
                 MapRoute(
                     openDrawer = openDrawer,
                     chatUIState = chatUIState
@@ -79,8 +83,6 @@ fun AllEngineerInOneNavGraph(
             composable (
                 route = AllEngineerInOneDestinations.CAMERA_ROUTE
             ){
-                // MapScreen
-
                 CameraRoute()
             }
 

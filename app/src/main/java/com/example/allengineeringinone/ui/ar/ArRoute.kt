@@ -47,8 +47,11 @@ import io.github.sceneview.rememberOnGestureListener
 import io.github.sceneview.rememberView
 
 
-private const val kModelFile = "models/needle.glb"
+private const val kModelFile = "models/needle.glb" // Modelo del pin
 
+/**
+ * Información: ArRoute es la vista stateful de la pantalla de AR.
+ * */
 @Composable
 fun ArRoute(
     arViewModel: ArViewModel = hiltViewModel(),
@@ -60,6 +63,7 @@ fun ArRoute(
     val materialLoader = rememberMaterialLoader(engine)
     var anchorNodes: List<AnchorNode> by remember { mutableStateOf(emptyList()) }
 
+    // Continuamente observando los anchors del viewModel para saber si hay que agregar un anchorNode a la vista.
     LaunchedEffect(uiState.anchors) {
         anchorNodes = uiState.anchors.map { anchor ->
             createAnchorNode(engine, modelLoader, materialLoader, anchor)
@@ -77,9 +81,10 @@ fun ArRoute(
         childNodes = anchorNodes, // Le pasamos la lista de nodos a dibujar
         planeRenderer = planeRenderer,
 
-        // Configure AR session settings
+        // Configuración de los settings
         sessionConfiguration = { session, config ->
-            // Enable depth if supported on the device
+
+            //Activamos si el celular tiene modo profundidad
             config.depthMode =
                 when (session.isDepthModeSupported(Config.DepthMode.AUTOMATIC)) {
                     true -> Config.DepthMode.AUTOMATIC
@@ -96,8 +101,7 @@ fun ArRoute(
                 if(node == null){
                     val hitResults = frame?.hitTest(event.x, event.y)
 
-                        // No creamos nodos aquí. Solo le pasamos el dato al "cerebro".
-
+                    // si al realizar tap es válido se crea el nodo.
                     hitResults?.firstOrNull {
                         it.isValid(
                             depthPoint = false,
@@ -153,10 +157,9 @@ fun createAnchorNode(
     val anchorNode = AnchorNode(engine = engine, anchor = anchor)
     val modelNode = ModelNode(
         modelInstance = modelLoader.createModelInstance(kModelFile),
-        // Scale to fit in a 0.5 meters cube
         scaleToUnits = 0.1f
     ).apply {
-        // Model Node needs to be editable for independent rotation from the anchor rotation
+        // configuración si es que queremos hacer escalable el modelo
 //        isEditable = true
 //        editableScaleRange = 0.2f..3.0f
     }

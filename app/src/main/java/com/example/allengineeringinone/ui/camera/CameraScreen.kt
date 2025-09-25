@@ -34,6 +34,17 @@ import androidx.compose.ui.unit.dp
 import com.example.allengineeringinone.ui.camera.data.model.CameraAction
 import com.example.allengineeringinone.ui.camera.data.model.CameraUIState
 
+/**
+ * Información: Esta función composable contiene la implementación de la pantalla de la cámara.
+ *
+ * @param uiState: Estado de la pantalla.
+ * @param onRecordClick: Función que se ejecuta al hacer click en el botón de grabación.
+ * @param onStopRecording: Función que se ejecuta al hacer click en el botón de parada de grabación.
+ * @param onPhotoMode: Función para cambiar el modo de la cámara a modo de foto.
+ * @param onVideoMode: Función para cambiar el modo de la cámara a modo de video.
+ * @param onSwitchCamera: Función para cambiar la cámara.
+ * @param cameraPreview: Composable que contiene la vista previa de la cámara.
+ * */
 @Composable
 fun CameraScreen(
     uiState: CameraUIState,

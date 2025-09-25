@@ -6,7 +6,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 /*
 * Rutas destino de la app 'AllEngineerInOne'
 * */
-
 object AllEngineerInOneDestinations {
     const val HOME_ROUTE = "home"
     const val TOOLS_ROUTE = "tools"
@@ -19,8 +18,6 @@ object AllEngineerInOneDestinations {
 /*
 * Acciones de navegación de la app 'AllEngineerInOne'
 * */
-
-
 class AllEngineerInOneNavigation(navController: NavController) {
 
     val navigationToHome: () -> Unit = {

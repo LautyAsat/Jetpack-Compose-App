@@ -39,7 +39,7 @@ class CameraViewModel @Inject constructor(
     private val videoCaptureUseCase = VideoCapture.withOutput(Recorder.Builder().build())
 
     fun initializeCamera(lifecycleOwner: LifecycleOwner, previewView: PreviewView) {
-        previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
+        previewUseCase.surfaceProvider = previewView.surfaceProvider
         bindCamera(lifecycleOwner)
     }
 

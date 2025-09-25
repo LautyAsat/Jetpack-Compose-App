@@ -14,6 +14,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.guava.await
 import javax.inject.Inject
 
+/**
+ * Información: Esta clase se encarga de la vinculación de los casos de uso de la cámara.
+ *
+ * */
 class CameraService @Inject constructor(
     @ApplicationContext private val context: Context
 ) {

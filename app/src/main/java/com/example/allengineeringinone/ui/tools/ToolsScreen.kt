@@ -71,6 +71,8 @@ import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 * @param onStartRecording: click en el boton de la grabacion (Se encarga de ver si hay permisos o no y las funciones correspondientes)
 * @param onStopRecording: detiene la grabación
 * @param chatUIState: estado del chat
+* @param chatActions: acciones del chat
+*
 * */
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -15,6 +15,14 @@ import com.example.allengineeringinone.ui.common.Chat.data.model.LocalChatAction
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.maps.android.compose.rememberCameraPositionState
 
+
+/**
+ * Información: MapRoute es el punto de entrada stateful de la pantalla de mapas.
+ *
+ * @param openDrawer: abre el drawer
+ * @inject mapViewModel: Inyección del viewModel del map
+ * @param chatUIState: estado del chat
+ * */
 @ExperimentalMaterial3Api
 @Composable
 fun MapRoute(

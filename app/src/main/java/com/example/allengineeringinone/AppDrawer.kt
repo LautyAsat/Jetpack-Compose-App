@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 
 
 /*
-* Este archivo contiene la implementación del cajón de navegación lateral de la aplicación (AppDrawer).
+* Información: Esta función composable contiene la implementación de la navegación lateral de la aplicación (AppDrawer).
 * Define la estructura y el comportamiento que tendra cada uno de los botones del panel.
 * */
 @Composable

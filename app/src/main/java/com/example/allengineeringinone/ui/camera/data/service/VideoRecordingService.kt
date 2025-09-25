@@ -23,6 +23,9 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Información: Esta clase servicio es especialista de la grabación de videos.
+ * */
 @Singleton
 class VideoRecordingService @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -47,7 +50,7 @@ class VideoRecordingService @Inject constructor(
 
         Log.d("DEBUG_VIDEO", "Service: Preparando y comenzando la grabación...") // <-- LOG 9
 
-        // ¡Empezamos a grabar!
+        // Arranca a grabar
         activeRecording = currentVideoCapture.output
             .prepareRecording(context, outputOptions)
             .withAudioEnabled() // Habilitamos el audio
@@ -59,8 +62,8 @@ class VideoRecordingService @Inject constructor(
                             Log.e("VideoRecordingService", "Grabación finalizada con error: ${event.error}")
                         } else {
                             Log.i("VideoRecordingService", "Grabación finalizada con éxito. URI: ${event.outputResults.outputUri}")
-                            // Aquí podrías llamar al repositorio para mover el video a la galería
 
+                            // guardamos el video en el store
                             currentOutputFile?.let { file ->
                                 videoRepository.saveVideoToGallery(file)
                             }

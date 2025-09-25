@@ -26,6 +26,8 @@ class ChatViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             chatRepository.observeMessages().collect { newMessage ->
+
+                // Observamos lo que escribe el operador en caso de que el bot ya no sea el que tenga el control.
                 if(!uiState.value.isBotResponding){
                     addMessageToChat(newMessage, Sender.BOT)
                 }
@@ -53,6 +55,7 @@ class ChatViewModel @Inject constructor(
         addMessageToChat(userMessageText, Sender.USER)
 
 
+        // El bot responde solo si es él que lleva la conversación
         if(uiState.value.isBotResponding){
             viewModelScope.launch {
                 chatRepository.getResponsesFor(userMessageText)

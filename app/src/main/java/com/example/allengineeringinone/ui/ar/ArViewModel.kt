@@ -20,8 +20,6 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.math.sqrt
 
-private const val kModelFile = "models/spiderbot.glb"
-
 @HiltViewModel
 class ArViewModel @Inject constructor() : ViewModel() {
     private val viewModelState = MutableStateFlow(ArUIState())
@@ -31,6 +29,7 @@ class ArViewModel @Inject constructor() : ViewModel() {
     fun onArTap(anchor: Anchor){
         val currentAnchors = viewModelState.value.anchors.toMutableList()
 
+        // Si ya existen dos anchors, limpiamos y agregamos el nuevo
         if(currentAnchors.size == 2){
             currentAnchors.clear()
             currentAnchors.add(anchor)
@@ -44,8 +43,6 @@ class ArViewModel @Inject constructor() : ViewModel() {
         if (currentAnchors.size == 2){
             distance = calculateDistance(currentAnchors[0].pose, currentAnchors[1].pose)
         }
-
-        Log.i("info", "ajajajs")
 
         viewModelState.update {
             it.copy(

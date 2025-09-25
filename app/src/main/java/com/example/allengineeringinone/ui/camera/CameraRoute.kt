@@ -42,7 +42,6 @@ fun CameraRoute(
         }
     )
 
-
     /*
     * Verificamos si ya tenemos los permisos
     * */

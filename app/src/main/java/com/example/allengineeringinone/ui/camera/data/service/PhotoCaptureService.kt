@@ -12,11 +12,13 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Información: Esta clase servicio es especialista de la toma de fotos.
+ * */
 @Singleton
 class PhotoCaptureService @Inject constructor(
     @ApplicationContext private val context: Context,
     private val photoRepository: PhotoRepository
-    // Podrías tener un PhotoRepository para guardar las fotos
 ) {
 
     private var currentFile: File? = null

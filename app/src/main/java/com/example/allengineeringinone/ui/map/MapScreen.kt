@@ -37,6 +37,16 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 
+/**
+ * Información: MapScreen es la vista stateless de la pantalla de mapas.
+ *
+ * @param uiState: estado de la pantalla
+ * @param cameraPositionState: estado de la cámara
+ * @param openDrawer: abre el drawer
+ * @param onAddMarkerClick: click en el boton de guardar mi punto actual
+ * @param chatUIState: estado del chat
+ * @param chatActions: acciones del chat
+ * */
 @Composable
 fun MapScreen(
     uiState: MapUIState,
